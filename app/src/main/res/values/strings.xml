@@ -11,4 +11,7 @@
     <string name="register_first_name">First Name</string>
     <string name="register_second_name">Second Name</string>
     <string name="register_credentials_title">Register</string>
+    <string name="register_gender">Gender:</string>
+    <string name="register_gender_male">Male</string>
+    <string name="register_gender_female">Female</string>
 </resources>

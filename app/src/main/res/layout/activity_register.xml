@@ -121,6 +121,51 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tvGenderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tilPasswordRepeat"
+            android:layout_alignLeft="@+id/tilPasswordRepeat"
+            android:layout_alignRight="@+id/tilPasswordRepeat"
+            android:layout_alignStart="@+id/tilPasswordRepeat"
+            android:layout_below="@id/tilPasswordRepeat"
+            android:layout_marginTop="8dp"
+            android:gravity="left"
+            android:text="@string/register_gender"
+            android:textColor="@color/textSecondary"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tilPasswordRepeat"
+            android:layout_alignLeft="@+id/tilPasswordRepeat"
+            android:layout_alignRight="@+id/tilPasswordRepeat"
+            android:layout_alignStart="@+id/tilPasswordRepeat"
+            android:layout_below="@id/tvGenderTitle"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/register_gender_male"
+                android:textColor="@color/textSecondary" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/register_gender_female"
+                android:textColor="@color/textSecondary" />
+        </RadioGroup>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +175,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSubmitContinue"
+                android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"

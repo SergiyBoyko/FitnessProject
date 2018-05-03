@@ -9,4 +9,5 @@
     <color name="white300">#E0E0E0</color>
     <color name="white500">#9E9E9E</color>
     <color name="transparent">#00000000</color>
+    <color name="textSecondary">#757575</color>
 </resources>

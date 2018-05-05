@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">FitnessProject</string>
     <string name="request_execution_has_failed">Request execution has failed. Check your internet connection</string>
+
     <string name="login_button_enter">Login</string>
     <string name="login_button_password_recovery">Forgot password?</string>
     <string name="register_password">Password</string>
-    <string name="register_email">E-mail</string>
     <string name="login_button_register">Sign Up</string>
+
+    <string name="register_email">E-mail</string>
     <string name="register_button_save_and_continue">Submit</string>
     <string name="register_password_repeat">Password repeat</string>
     <string name="register_first_name">First Name</string>
@@ -14,4 +16,14 @@
     <string name="register_gender">Gender:</string>
     <string name="register_gender_male">Male</string>
     <string name="register_gender_female">Female</string>
+
+    <string name="menu_my_credentials">Profile</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
+    <string name="tab_workout">Workouts</string>
+    <string name="tab_other">Other</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility_open_nav_drawer">Открытие бокового меню</string>
+    <string name="accessibility_close_nav_drawer">Закрытие бокового меню</string>
 </resources>

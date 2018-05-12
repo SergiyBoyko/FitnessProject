@@ -1,0 +1,84 @@
+package com.example.a38096.fitnessproject.widgets.adapters;
+
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.model.entities.Workout;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Created by Serhii Boiko on 08.05.2018.
+ */
+public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder> {
+
+    private List<Workout> mWorkouts;
+    private OnWorkoutClickListener clickListener;
+
+    public WorkoutAdapter(List<Workout> mWorkouts, OnWorkoutClickListener clickListener) {
+        this.mWorkouts = mWorkouts;
+        this.clickListener = clickListener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.tvDate.setText(mWorkouts.get(position).getDate());
+        holder.tvWorkoutType.setText(mWorkouts.get(position).getType());
+        holder.tvCalories.setText(mWorkouts.get(position).getCalories());
+        holder.tvDuration.setText(mWorkouts.get(position).getDuration());
+        holder.tvDistance.setText(mWorkouts.get(position).getDistance());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mWorkouts == null ? 0 : mWorkouts.size();
+    }
+
+    public interface OnWorkoutClickListener {
+        void onWorkoutClick(Workout workout);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tvDate)
+        TextView tvDate;
+        @BindView(R.id.tvWorkoutType)
+        TextView tvWorkoutType;
+        @BindView(R.id.ivEditWorkout)
+        ImageView ivEditWorkout;
+        @BindView(R.id.tvCalories)
+        TextView tvCalories;
+        @BindView(R.id.tvDuration)
+        TextView tvDuration;
+        @BindView(R.id.tvDistance)
+        TextView tvDistance;
+
+        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.item_workout, parent, false));
+
+            ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onWorkoutClick(mWorkouts.get(getAdapterPosition()));
+                }
+            });
+
+        }
+    }
+}

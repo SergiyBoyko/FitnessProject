@@ -26,4 +26,11 @@
     <!-- Accessibility -->
     <string name="accessibility_open_nav_drawer">Открытие бокового меню</string>
     <string name="accessibility_close_nav_drawer">Закрытие бокового меню</string>
+    <string name="edit_date">Date</string>
+    <string name="edit_time">Time</string>
+    <string name="edit_select_type">Select type</string>
+    <string name="edit_distance">Distance (km)</string>
+    <string name="edit_duration">Duration (min)</string>
+    <string name="edit_calories">Calories (cal)</string>
+    <string name="edit_date_workout_dialog_title">Workout date</string>
 </resources>

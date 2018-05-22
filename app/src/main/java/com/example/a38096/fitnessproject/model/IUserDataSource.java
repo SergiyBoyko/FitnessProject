@@ -13,5 +13,17 @@ public interface IUserDataSource {
 
     void setAuthorized();
 
+    String getFirstName();
+
+    void setFirstName(String firstName);
+
+    String getSecondName();
+
+    void setSecondName(String secondName);
+
+    String getGender();
+
+    void setGender(String genderName);
+
     void clear();
 }

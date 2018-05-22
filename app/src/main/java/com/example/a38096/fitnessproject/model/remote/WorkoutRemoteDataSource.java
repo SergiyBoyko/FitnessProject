@@ -2,6 +2,9 @@ package com.example.a38096.fitnessproject.model.remote;
 
 import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
+import com.example.a38096.fitnessproject.model.entities.Workout;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -18,17 +21,22 @@ public class WorkoutRemoteDataSource implements IWorkoutDataSource {
     }
 
     @Override
-    public Observable<ResponseBody> createWorkout(int token, int type, int calories, int distance, int duration, int workoutDate) {
-        return fitnessApi.createWorkout(token, type, calories, distance, duration, workoutDate);
+    public Observable<ResponseBody> createWorkout(String uuid, String type, int calories, int distance, int duration, int workoutDate) {
+        return fitnessApi.createWorkout(uuid, type, calories, distance, duration, workoutDate);
     }
 
     @Override
-    public Observable<ResponseBody> updateWorkout(int token, int id, int type, int calories, int distance, int duration, int workoutDate) {
-        return fitnessApi.updateWorkout(token, id, type, calories, distance, duration, workoutDate);
+    public Observable<ResponseBody> updateWorkout(String uuid, int workoutId, String type, int calories, int distance, int duration, int workoutDate) {
+        return fitnessApi.updateWorkout(uuid, workoutId, type, calories, distance, duration, workoutDate);
     }
 
     @Override
-    public Observable<ResponseBody> deleteWorkout(int token, int id, int type, int calories, int distance, int duration, int workoutDate) {
-        return fitnessApi.deleteWorkout(token, id, type, calories, distance, duration, workoutDate);
+    public Observable<ResponseBody> deleteWorkout(String uuid, int workoutId) {
+        return fitnessApi.deleteWorkout(uuid, workoutId);
+    }
+
+    @Override
+    public Observable<List<Workout>> getWorkouts(String uuid) {
+        return fitnessApi.getWorkouts(uuid);
     }
 }

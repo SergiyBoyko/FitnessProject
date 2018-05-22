@@ -11,6 +11,9 @@ public class UserDataSource extends BasePrefSource implements IUserDataSource {
 
     public static final String AUTHORIZED = "authorized";
     public static final String AUTH_TOKEN = "auth_token";
+    public static final String FIRST_NAME = "first_name";
+    public static final String SECOND_NAME = "second_name";
+    public static final String GENDER = "gender";
 
     public UserDataSource(SharedPreferences sharedPreferences) {
         super(sharedPreferences);
@@ -34,6 +37,36 @@ public class UserDataSource extends BasePrefSource implements IUserDataSource {
     @Override
     public void setAuthorized() {
         setBooleanPreference(AUTHORIZED, true);
+    }
+
+    @Override
+    public String getFirstName() {
+        return getStringPreference(FIRST_NAME);
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        setStringPreference(FIRST_NAME, firstName);
+    }
+
+    @Override
+    public String getSecondName() {
+        return getStringPreference(SECOND_NAME);
+    }
+
+    @Override
+    public void setSecondName(String secondName) {
+        setStringPreference(SECOND_NAME, secondName);
+    }
+
+    @Override
+    public String getGender() {
+        return getStringPreference(GENDER);
+    }
+
+    @Override
+    public void setGender(String genderName) {
+        setStringPreference(GENDER, genderName);
     }
 
     @Override

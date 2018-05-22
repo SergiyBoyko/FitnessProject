@@ -1,5 +1,9 @@
 package com.example.a38096.fitnessproject.model;
 
+import com.example.a38096.fitnessproject.model.entities.Workout;
+
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -8,27 +12,25 @@ import rx.Observable;
  */
 public interface IWorkoutDataSource {
 
-    Observable<ResponseBody> createWorkout(int token,
-                                           int type,
+    Observable<ResponseBody> createWorkout(String uuid,
+                                           String type,
                                            int calories,
                                            int distance,
                                            int duration,
                                            int workoutDate);
 
-    Observable<ResponseBody> updateWorkout(int token,
-                                           int id,
-                                           int type,
+    Observable<ResponseBody> updateWorkout(String uuid,
+                                           int workoutId,
+                                           String type,
                                            int calories,
                                            int distance,
                                            int duration,
                                            int workoutDate);
 
-    Observable<ResponseBody> deleteWorkout(int token,
-                                           int id,
-                                           int type,
-                                           int calories,
-                                           int distance,
-                                           int duration,
-                                           int workoutDate);
+    Observable<ResponseBody> deleteWorkout(String uuid,
+                                           int workoutId);
+
+
+    Observable<List<Workout>> getWorkouts(String uuid);
 
 }

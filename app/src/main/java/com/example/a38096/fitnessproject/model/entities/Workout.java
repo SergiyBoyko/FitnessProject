@@ -1,29 +1,37 @@
 package com.example.a38096.fitnessproject.model.entities;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Serhii Boiko on 08.05.2018.
  */
 public class Workout {
-    private String date;
+    @SerializedName("workoutId")
+    @Expose
+    private Long workoutId;
+    @SerializedName("type")
+    @Expose
     private String type;
-    private String distance;
-    private String duration;
-    private String calories;
+    @SerializedName("calories")
+    @Expose
+    private Integer calories;
+    @SerializedName("distance")
+    @Expose
+    private Double distance;
+    @SerializedName("duration")
+    @Expose
+    private Integer duration;
+    @SerializedName("workoutDate")
+    @Expose
+    private String workoutDate;
 
-    public Workout(String date, String type, String distance, String duration, String calories) {
-        this.date = date;
-        this.type = type;
-        this.distance = distance;
-        this.duration = duration;
-        this.calories = calories;
+    public Long getWorkoutId() {
+        return workoutId;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setWorkoutId(Long workoutId) {
+        this.workoutId = workoutId;
     }
 
     public String getType() {
@@ -34,27 +42,35 @@ public class Workout {
         this.type = type;
     }
 
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getCalories() {
+    public Integer getCalories() {
         return calories;
     }
 
-    public void setCalories(String calories) {
+    public void setCalories(Integer calories) {
         this.calories = calories;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public String getWorkoutDate() {
+        return workoutDate;
+    }
+
+    public void setWorkoutDate(String workoutDate) {
+        this.workoutDate = workoutDate;
     }
 }

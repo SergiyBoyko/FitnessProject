@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.model.entities.Workout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,11 +38,11 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvDate.setText(mWorkouts.get(position).getDate());
+        holder.tvDate.setText(mWorkouts.get(position).getWorkoutDate());
         holder.tvWorkoutType.setText(mWorkouts.get(position).getType());
-        holder.tvCalories.setText(mWorkouts.get(position).getCalories());
-        holder.tvDuration.setText(mWorkouts.get(position).getDuration());
-        holder.tvDistance.setText(mWorkouts.get(position).getDistance());
+        holder.tvCalories.setText(String.valueOf(mWorkouts.get(position).getCalories()));
+        holder.tvDuration.setText(String.valueOf(mWorkouts.get(position).getDuration()));
+        holder.tvDistance.setText(String.valueOf(mWorkouts.get(position).getDistance()));
     }
 
     @Override
@@ -49,8 +50,25 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
         return mWorkouts == null ? 0 : mWorkouts.size();
     }
 
+    public void updateItems(List<Workout> workouts) {
+        mWorkouts = new ArrayList<>(workouts);
+    }
+
+    public void removeWorkout(int workoutId) {
+        for (Workout workout : mWorkouts) {
+            if (workout.getWorkoutId() == workoutId) {
+                mWorkouts.remove(workoutId);
+                notifyDataSetChanged();
+                break;
+            }
+        }
+
+    }
+
     public interface OnWorkoutClickListener {
         void onWorkoutClick(Workout workout);
+
+        void onWorkoutLongClick(Workout workout);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -76,6 +94,14 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     clickListener.onWorkoutClick(mWorkouts.get(getAdapterPosition()));
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    clickListener.onWorkoutLongClick(mWorkouts.get(getAdapterPosition()));
+                    return true;
                 }
             });
 

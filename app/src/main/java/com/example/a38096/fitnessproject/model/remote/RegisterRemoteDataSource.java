@@ -2,8 +2,8 @@ package com.example.a38096.fitnessproject.model.remote;
 
 import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.model.IRegisterDataSource;
+import com.example.a38096.fitnessproject.model.entities.User;
 
-import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -18,7 +18,7 @@ public class RegisterRemoteDataSource implements IRegisterDataSource {
     }
 
     @Override
-    public Observable<ResponseBody> registerUser(int firstName, int lastName, int gender, int password, int email) {
-        return fitnessApi.registerUser(firstName, lastName, gender, password, email);
+    public Observable<User> registerUser(String firstName, String lastName, String email, String password, String gender) {
+        return fitnessApi.registerUser(firstName, lastName, email, password, gender);
     }
 }

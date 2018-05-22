@@ -1,5 +1,6 @@
 package com.example.a38096.fitnessproject.ui.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView mNavigationView;
     @BindView(R.id.tvToolbarTitle)
     TextView mTvToolbarTitle;
+    //    @BindView(R.id.tvMenuCredentials)
+//    TextView tvMenuCredentials;
     @BindView(R.id.ivMenu)
     ImageView mIvMenu;
 
@@ -180,8 +184,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.tvMenuCredentials)
+    public void OnCredentialsClick() {
+        startActivity(new Intent(this, UserCredentialsActivity.class));
+    }
+
+    @OnClick(R.id.tvMenuLogout)
+    public void OnLogoutClick() {
+        finish();
+    }
+
     private class MainViewPagerAdapter extends FragmentPagerAdapter {
-        public static final int FRAGMENT_COUNT = 2;
+        public static final int FRAGMENT_COUNT = 1;
         public static final int WORKOUTS = 0;
         public static final int OTHER = 1;
 

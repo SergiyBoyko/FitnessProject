@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llSubmit"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivRegisterProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true" />
+
+                <LinearLayout
+                    android:id="@+id/llDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/tietDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="@string/edit_date"
+                            android:inputType="date" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="-32dp"
+                        android:src="@drawable/ic_calendar" />
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/llDate"
+                    android:layout_alignLeft="@+id/llDate"
+                    android:layout_alignRight="@+id/llDate"
+                    android:layout_alignStart="@+id/llDate"
+                    android:layout_below="@+id/llDate">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tietType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/edit_select_type"
+                        android:inputType="textEmailAddress" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/tilType"
+                    android:layout_alignLeft="@+id/tilType"
+                    android:layout_alignRight="@+id/tilType"
+                    android:layout_alignStart="@+id/tilType"
+                    android:layout_below="@+id/tilType">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tietDistance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/edit_distance"
+                        android:inputType="numberDecimal" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/tilDistance"
+                    android:layout_alignLeft="@+id/tilDistance"
+                    android:layout_alignRight="@+id/tilDistance"
+                    android:layout_alignStart="@+id/tilDistance"
+                    android:layout_below="@id/tilDistance">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tietDuration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/edit_duration"
+                        android:inputType="numberDecimal" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilCalories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/tilDuration"
+                    android:layout_alignLeft="@+id/tilDuration"
+                    android:layout_alignRight="@+id/tilDuration"
+                    android:layout_alignStart="@+id/tilDuration"
+                    android:layout_below="@id/tilDuration">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tietCalories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/edit_calories"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/llSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/tilPasswordRepeat"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_dark_gradient"
+                android:elevation="4dp"
+                android:text="@string/register_button_save_and_continue"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

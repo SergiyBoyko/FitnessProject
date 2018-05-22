@@ -1,7 +1,14 @@
 package com.example.a38096.fitnessproject.api;
 
+import com.example.a38096.fitnessproject.model.entities.User;
+import com.example.a38096.fitnessproject.model.entities.Workout;
+
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -14,43 +21,44 @@ import rx.Observable;
 public interface FitnessApi {
 
     @POST("/fitness/signUp")
-    Observable<ResponseBody> registerUser(@Query("firstName") int firstName,
-                                          @Query("lastName") int lastName,
-                                          @Query("gender") int gender,
-                                          @Query("password") int password,
-                                          @Query("email") int email);
+    Observable<User> registerUser(@Query("firstName") String firstName,
+                                  @Query("lastName") String lastName,
+                                  @Query("email") String email,
+                                  @Query("password") String password,
+                                  @Query("gender") String gender);
 
-    @PUT("/fitness/exerciser/{token}")
-    Observable<ResponseBody> updateUser(@Path("token") int token,
-                                        @Query("firstName") int firstName,
-                                        @Query("lastName") int lastName,
-                                        @Query("gender") int gender);
+    @POST("/fitness/login")
+    Observable<User> login(@Header("Basic") String loginPasswordBase64);
 
-    @POST("/fitness/exerciser/{token}/workout")
-    Observable<ResponseBody> createWorkout(@Path("token") int token,
-                                           @Query("type") int type,
+    @PUT("/fitness/exerciser/{uuid}")
+    Observable<ResponseBody> updateUser(@Path("uuid") String uuid,
+                                        @Query("firstName") String firstName,
+                                        @Query("lastName") String lastName,
+                                        @Query("gender") String gender);
+
+    @POST("/fitness/exerciser/{uuid}/workout")
+    Observable<ResponseBody> createWorkout(@Path("uuid") String uuid,
+                                           @Query("type") String type,
                                            @Query("calories") int calories,
                                            @Query("distance") int distance,
                                            @Query("duration") int duration,
                                            @Query("workoutDate") int workoutDate);
 
-    @PUT("/fitness/exerciser/{token}/workout/{id}")
-    Observable<ResponseBody> updateWorkout(@Path("token") int token,
-                                           @Path("id") int id,
-                                           @Query("type") int type,
+    @PUT("/fitness/exerciser/{uuid}/workout/{workoutId}")
+    Observable<ResponseBody> updateWorkout(@Path("uuid") String uuid,
+                                           @Path("workoutId") int workoutId,
+                                           @Query("type") String type,
                                            @Query("calories") int calories,
                                            @Query("distance") int distance,
                                            @Query("duration") int duration,
                                            @Query("workoutDate") int workoutDate);
 
-    @DELETE("/fitness/exerciser/{token}/workout/{id}")
-    Observable<ResponseBody> deleteWorkout(@Path("token") int token,
-                                           @Path("id") int id,
-                                           @Query("type") int type,
-                                           @Query("calories") int calories,
-                                           @Query("distance") int distance,
-                                           @Query("duration") int duration,
-                                           @Query("workoutDate") int workoutDate);
+    @DELETE("/fitness/exerciser/{uuid}/workout/{workoutId}")
+    Observable<ResponseBody> deleteWorkout(@Path("uuid") String uuid,
+                                           @Path("workoutId") int workoutId);
 
+
+    @GET("/fitness/exerciser/{uuid}/workouts")
+    Observable<List<Workout>> getWorkouts(@Path("uuid") String uuid);
 
 }

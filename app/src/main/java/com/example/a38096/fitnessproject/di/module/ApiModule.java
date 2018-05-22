@@ -1,6 +1,19 @@
 package com.example.a38096.fitnessproject.di.module;
 
+import android.content.SharedPreferences;
+
+import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.common.Constants;
+import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
+import com.example.a38096.fitnessproject.model.ILoginDataSource;
+import com.example.a38096.fitnessproject.model.IRegisterDataSource;
+import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
+import com.example.a38096.fitnessproject.model.prefs.UserDataSource;
+import com.example.a38096.fitnessproject.model.remote.CredentialsRemoteDataSource;
+import com.example.a38096.fitnessproject.model.remote.LoginRemoteDataSource;
+import com.example.a38096.fitnessproject.model.remote.RegisterRemoteDataSource;
+import com.example.a38096.fitnessproject.model.remote.WorkoutRemoteDataSource;
 
 import javax.inject.Singleton;
 
@@ -26,4 +39,35 @@ public class ApiModule {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }
+
+    @Provides
+    @Singleton
+    ILoginDataSource provideLoginDataSource(Retrofit retrofit) {
+        return new LoginRemoteDataSource(retrofit.create(FitnessApi.class));
+    }
+
+    @Provides
+    @Singleton
+    IRegisterDataSource provideRegisterDataSource(Retrofit retrofit) {
+        return new RegisterRemoteDataSource(retrofit.create(FitnessApi.class));
+    }
+
+    @Provides
+    @Singleton
+    IWorkoutDataSource provideWorkoutDataSource(Retrofit retrofit) {
+        return new WorkoutRemoteDataSource(retrofit.create(FitnessApi.class));
+    }
+
+    @Provides
+    @Singleton
+    ICredentialsDataSource provideCredentialsDataSource(Retrofit retrofit) {
+        return new CredentialsRemoteDataSource(retrofit.create(FitnessApi.class));
+    }
+
+    @Provides
+    @Singleton
+    IUserDataSource provideUserDataSource(SharedPreferences preferences) {
+        return new UserDataSource(preferences);
+    }
+
 }

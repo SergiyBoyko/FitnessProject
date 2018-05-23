@@ -57,12 +57,13 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
 
     public void updateItems(List<Workout> workouts) {
         mWorkouts = new ArrayList<>(workouts);
+        notifyDataSetChanged();
     }
 
     public void removeWorkout(int workoutId) {
         for (Workout workout : mWorkouts) {
             if (workout.getWorkoutId() == workoutId) {
-                mWorkouts.remove(workoutId);
+                mWorkouts.remove(workout);
                 notifyDataSetChanged();
                 break;
             }

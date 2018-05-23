@@ -27,7 +27,7 @@ public class WorkoutRemoteDataSource implements IWorkoutDataSource {
     }
 
     @Override
-    public Observable<ResponseBody> updateWorkout(String uuid, int workoutId, String type, int calories, double distance, int duration, long workoutDate,
+    public Observable<ResponseBody> updateWorkout(String uuid, long workoutId, String type, int calories, double distance, int duration, long workoutDate,
                                                   String loginPasswordBase64) {
         return fitnessApi.updateWorkout(uuid, workoutId, type, calories, distance, duration, workoutDate, loginPasswordBase64);
     }

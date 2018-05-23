@@ -37,7 +37,7 @@ import butterknife.OnClick;
  */
 public class EditWorkoutActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener, WorkoutView {
-    public static final int EMPTY_WORKOUT_ID = -100;
+    public static final long EMPTY_WORKOUT_ID = -100L;
     @BindView(R.id.tietDate)
     TextInputEditText mTietDate;
 
@@ -56,7 +56,7 @@ public class EditWorkoutActivity extends AppCompatActivity implements
     WorkoutPresenter mPresenter;
     private long mDate;
 
-    private int workoutId;
+    private long workoutId;
 
     public static String formatDateNumber(int year, int month, int dayOfMonth) {
         if (month >= 0 && month <= 11) {
@@ -86,7 +86,7 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
-        workoutId = intent.getIntExtra(getString(R.string.id_intent), EMPTY_WORKOUT_ID);
+        workoutId = intent.getLongExtra(getString(R.string.id_intent), EMPTY_WORKOUT_ID);
 
         mTietDistance.setText(String.valueOf(workoutId));
         mDate = intent.getLongExtra(getString(R.string.date_intent), 0L);
@@ -143,7 +143,11 @@ public class EditWorkoutActivity extends AppCompatActivity implements
                     mDate
             );
         } else {
-//            mPresenter.updateWorkout();
+            mPresenter.updateWorkout(workoutId, mTietType.getText().toString().trim(),
+                    Integer.parseInt(mTietCalories.getText().toString().trim()),
+                    Double.parseDouble(mTietDistance.getText().toString().trim()),
+                    Integer.parseInt(mTietDuration.getText().toString().trim()),
+                    mDate);
         }
     }
 
@@ -162,7 +166,7 @@ public class EditWorkoutActivity extends AppCompatActivity implements
 
     @Override
     public void showWorkouts(List<Workout> workouts) {
-
+        finish();
     }
 
     @Override

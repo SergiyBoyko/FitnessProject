@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Serhii Boiko on 08.05.2018.
  */
 public class Workout {
-    @SerializedName("workoutId")
+    @SerializedName("id")
     @Expose
     private Long workoutId;
     @SerializedName("type")

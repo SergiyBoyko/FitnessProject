@@ -48,8 +48,8 @@ public class WorkoutPresenter extends BasePresenter<WorkoutView> {
         );
     }
 
-    public void updateWorkout(int workoutId, String type, int calories,
-                              int distance, int duration, int workoutDate) {
+    public void updateWorkout(long workoutId, String type, int calories,
+                              double distance, int duration, Long workoutDate) {
         addSubscription(mWorkoutDataSource.updateWorkout(
                 mDataSource.getToken(), workoutId, type, calories, distance, duration, workoutDate,
                 mDataSource.getBase64Data()

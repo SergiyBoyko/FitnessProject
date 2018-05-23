@@ -21,7 +21,7 @@ public interface IWorkoutDataSource {
                                            String loginPasswordBase64);
 
     Observable<ResponseBody> updateWorkout(String uuid,
-                                           int workoutId,
+                                           long workoutId,
                                            String type,
                                            int calories,
                                            double distance,

@@ -48,7 +48,7 @@ public interface FitnessApi {
 
     @PUT("/fitness/exerciser/{uuid}/workout/{workoutId}")
     Observable<ResponseBody> updateWorkout(@Path("uuid") String uuid,
-                                           @Path("workoutId") int workoutId,
+                                           @Path("workoutId") long workoutId,
                                            @Query("type") String type,
                                            @Query("calories") int calories,
                                            @Query("distance") double distance,

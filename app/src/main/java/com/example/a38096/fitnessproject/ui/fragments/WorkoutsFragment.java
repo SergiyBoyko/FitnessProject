@@ -60,8 +60,8 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
 
         mPresenter.setView(this);
 
-        mAdapter = new WorkoutAdapter(loadTestData(), this);
-//        mPresenter.getWorkouts();
+        mAdapter = new WorkoutAdapter(null, this);
+        mPresenter.getWorkouts();
 
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
@@ -115,7 +115,7 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
         builder.setMessage("Delete this workout?")
                 .setPositiveButton(R.string.delete_action, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //mPresenter.deleteWorkout(workout.getWorkoutId());
+                        mPresenter.deleteWorkout(workout.getWorkoutId());
                     }
                 })
                 .setNegativeButton(R.string.cancel_action, new DialogInterface.OnClickListener() {
@@ -125,6 +125,14 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
                 });
         // Create the AlertDialog object and return it
         builder.create().show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mPresenter != null) {
+            mPresenter.getWorkouts();
+        }
     }
 
     @Override

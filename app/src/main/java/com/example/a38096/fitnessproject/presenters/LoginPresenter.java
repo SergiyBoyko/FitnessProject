@@ -41,8 +41,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             e.printStackTrace();
         }
 
-//        login(base64);
-        getView().goToMainActivity();
+        login(base64);
+        //getView().goToMainActivity();
     }
 
     private boolean isNotValidLoginPassword(String login, String password) {

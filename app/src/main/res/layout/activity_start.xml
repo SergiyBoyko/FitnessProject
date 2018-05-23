@@ -17,6 +17,7 @@
             android:background="@color/colorPrimary">
 
             <ImageView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:src="@drawable/logo"

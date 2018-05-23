@@ -44,22 +44,6 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tvMenuSettings"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:drawableLeft="@drawable/ic_settings"
-                android:drawablePadding="16dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:paddingStart="16dp"
-                android:text="@string/menu_settings"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-
-            <TextView
                 android:id="@+id/tvMenuLogout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

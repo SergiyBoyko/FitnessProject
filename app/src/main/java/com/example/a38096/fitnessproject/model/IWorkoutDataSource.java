@@ -17,7 +17,7 @@ public interface IWorkoutDataSource {
                                            int calories,
                                            int distance,
                                            int duration,
-                                           int workoutDate);
+                                           long workoutDate);
 
     Observable<ResponseBody> updateWorkout(String uuid,
                                            int workoutId,

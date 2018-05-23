@@ -28,7 +28,7 @@ public interface FitnessApi {
                                   @Query("gender") String gender);
 
     @POST("/fitness/login")
-    Observable<User> login(@Header("Basic") String loginPasswordBase64);
+    Observable<User> login(@Header("Authorization") String loginPasswordBase64);
 
     @PUT("/fitness/exerciser/{uuid}")
     Observable<ResponseBody> updateUser(@Path("uuid") String uuid,
@@ -42,7 +42,7 @@ public interface FitnessApi {
                                            @Query("calories") int calories,
                                            @Query("distance") int distance,
                                            @Query("duration") int duration,
-                                           @Query("workoutDate") int workoutDate);
+                                           @Query("workoutDate") long workoutDate);
 
     @PUT("/fitness/exerciser/{uuid}/workout/{workoutId}")
     Observable<ResponseBody> updateWorkout(@Path("uuid") String uuid,

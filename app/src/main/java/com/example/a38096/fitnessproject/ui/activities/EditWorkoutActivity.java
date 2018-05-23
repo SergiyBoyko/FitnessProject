@@ -130,7 +130,15 @@ public class EditWorkoutActivity extends AppCompatActivity implements
     @OnClick(R.id.btnSubmit)
     public void onSubmitClick() {
         if (workoutId == EMPTY_WORKOUT_ID) {
-
+            mPresenter.createWorkout(
+                    mTietType.getText().toString().trim(),
+                    Integer.parseInt(mTietCalories.getText().toString().trim()),
+                    Integer.parseInt(mTietDistance.getText().toString().trim()),
+                    Integer.parseInt(mTietDuration.getText().toString().trim()),
+                    mDate
+            );
+        } else {
+//            mPresenter.updateWorkout();
         }
     }
 

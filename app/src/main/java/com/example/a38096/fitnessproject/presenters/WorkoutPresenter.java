@@ -34,7 +34,7 @@ public class WorkoutPresenter extends BasePresenter<WorkoutView> {
     }
 
     public void createWorkout(String type, int calories,
-                              int distance, int duration, int workoutDate) {
+                              int distance, int duration, long workoutDate) {
         addSubscription(mWorkoutDataSource.createWorkout(mDataSource.getToken(), type, calories, distance, duration, workoutDate)
                 .retryWhen(new RxRetryWithDelay())
                 .subscribeOn(Schedulers.io())

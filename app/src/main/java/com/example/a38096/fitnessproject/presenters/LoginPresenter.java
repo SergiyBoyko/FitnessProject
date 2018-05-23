@@ -9,6 +9,8 @@ import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
 import com.example.a38096.fitnessproject.views.LoginView;
 
+import java.io.UnsupportedEncodingException;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -32,8 +34,12 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         }
         // TODO: 13.05.2018 fix encode base64
         String source = login + ":" + password;
-        String base64 = Base64.encodeToString(source.getBytes(), Base64.DEFAULT);
-
+        String base64 = null;
+        try {
+            base64 = "Basic " + Base64.encodeToString(source.trim().getBytes("UTF-8"), Base64.NO_WRAP);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         login(base64);
 //        getView().goToMainActivity();

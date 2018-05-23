@@ -21,22 +21,26 @@ public class WorkoutRemoteDataSource implements IWorkoutDataSource {
     }
 
     @Override
-    public Observable<ResponseBody> createWorkout(String uuid, String type, int calories, int distance, int duration, long workoutDate) {
-        return fitnessApi.createWorkout(uuid, type, calories, distance, duration, workoutDate);
+    public Observable<ResponseBody> createWorkout(String uuid, String type, int calories, double distance, int duration, long workoutDate,
+                                                  String loginPasswordBase64) {
+        return fitnessApi.createWorkout(uuid, type, calories, distance, duration, workoutDate, loginPasswordBase64);
     }
 
     @Override
-    public Observable<ResponseBody> updateWorkout(String uuid, int workoutId, String type, int calories, int distance, int duration, int workoutDate) {
-        return fitnessApi.updateWorkout(uuid, workoutId, type, calories, distance, duration, workoutDate);
+    public Observable<ResponseBody> updateWorkout(String uuid, int workoutId, String type, int calories, double distance, int duration, long workoutDate,
+                                                  String loginPasswordBase64) {
+        return fitnessApi.updateWorkout(uuid, workoutId, type, calories, distance, duration, workoutDate, loginPasswordBase64);
     }
 
     @Override
-    public Observable<ResponseBody> deleteWorkout(String uuid, int workoutId) {
-        return fitnessApi.deleteWorkout(uuid, workoutId);
+    public Observable<ResponseBody> deleteWorkout(String uuid, int workoutId,
+                                                  String loginPasswordBase64) {
+        return fitnessApi.deleteWorkout(uuid, workoutId, loginPasswordBase64);
     }
 
     @Override
-    public Observable<List<Workout>> getWorkouts(String uuid) {
-        return fitnessApi.getWorkouts(uuid);
+    public Observable<List<Workout>> getWorkouts(String uuid,
+                                                 String loginPasswordBase64) {
+        return fitnessApi.getWorkouts(uuid, loginPasswordBase64);
     }
 }

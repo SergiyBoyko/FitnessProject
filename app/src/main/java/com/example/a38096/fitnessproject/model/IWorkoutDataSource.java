@@ -15,22 +15,26 @@ public interface IWorkoutDataSource {
     Observable<ResponseBody> createWorkout(String uuid,
                                            String type,
                                            int calories,
-                                           int distance,
+                                           double distance,
                                            int duration,
-                                           long workoutDate);
+                                           long workoutDate,
+                                           String loginPasswordBase64);
 
     Observable<ResponseBody> updateWorkout(String uuid,
                                            int workoutId,
                                            String type,
                                            int calories,
-                                           int distance,
+                                           double distance,
                                            int duration,
-                                           int workoutDate);
+                                           long workoutDate,
+                                           String loginPasswordBase64);
 
     Observable<ResponseBody> deleteWorkout(String uuid,
-                                           int workoutId);
+                                           int workoutId,
+                                           String loginPasswordBase64);
 
 
-    Observable<List<Workout>> getWorkouts(String uuid);
+    Observable<List<Workout>> getWorkouts(String uuid,
+                                          String loginPasswordBase64);
 
 }

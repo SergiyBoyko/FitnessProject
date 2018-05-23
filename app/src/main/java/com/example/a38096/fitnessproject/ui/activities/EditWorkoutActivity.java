@@ -88,7 +88,7 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         mTietDistance.setText(String.valueOf(workoutId));
         mTietDate.setText(intent.getStringExtra(getString(R.string.date_intent)));
         mTietType.setText(intent.getStringExtra(getString(R.string.type_intent)));
-        mTietDistance.setText(String.valueOf(intent.getFloatExtra(getString(R.string.distance_intent), 0)));
+        mTietDistance.setText(String.valueOf(intent.getDoubleExtra(getString(R.string.distance_intent), 0)));
         mTietDuration.setText(String.valueOf(intent.getIntExtra(getString(R.string.duration_intent), 0)));
         mTietCalories.setText(String.valueOf(intent.getIntExtra(getString(R.string.calories_intent), 0)));
     }
@@ -133,7 +133,7 @@ public class EditWorkoutActivity extends AppCompatActivity implements
             mPresenter.createWorkout(
                     mTietType.getText().toString().trim(),
                     Integer.parseInt(mTietCalories.getText().toString().trim()),
-                    Integer.parseInt(mTietDistance.getText().toString().trim()),
+                    Double.parseDouble(mTietDistance.getText().toString().trim()),
                     Integer.parseInt(mTietDuration.getText().toString().trim()),
                     mDate
             );

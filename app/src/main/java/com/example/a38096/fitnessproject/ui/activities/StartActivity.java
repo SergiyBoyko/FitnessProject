@@ -13,6 +13,7 @@ import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.di.component.AppComponent;
 import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
 import com.example.a38096.fitnessproject.di.module.PresentersModule;
+import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.presenters.LoginPresenter;
 import com.example.a38096.fitnessproject.views.LoginView;
 
@@ -42,6 +43,9 @@ public class StartActivity extends AppCompatActivity implements LoginView {
     @Inject
     LoginPresenter mPresenter;
 
+    @Inject
+    IUserDataSource mUserDataSource;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,14 @@ public class StartActivity extends AppCompatActivity implements LoginView {
                 .inject(this);
 
         mPresenter.setView(this);
+
+        checkIfAuthorized();
+    }
+
+    private void checkIfAuthorized() {
+        if (mUserDataSource.isAuthorized()) {
+            goToMainActivity();
+        }
     }
 
     @OnClick(R.id.tvRegisterButton)

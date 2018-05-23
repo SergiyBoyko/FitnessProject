@@ -13,6 +13,7 @@ public class UserDataSource extends BasePrefSource implements IUserDataSource {
     public static final String AUTH_TOKEN = "auth_token";
     public static final String FIRST_NAME = "first_name";
     public static final String SECOND_NAME = "second_name";
+    public static final String BASE64_DATA = "base64_data";
     public static final String GENDER = "gender";
 
     public UserDataSource(SharedPreferences sharedPreferences) {
@@ -67,6 +68,16 @@ public class UserDataSource extends BasePrefSource implements IUserDataSource {
     @Override
     public void setGender(String genderName) {
         setStringPreference(GENDER, genderName);
+    }
+
+    @Override
+    public String getBase64Data() {
+        return getStringPreference(BASE64_DATA);
+    }
+
+    @Override
+    public void setBase64Data(String base64Data) {
+        setStringPreference(BASE64_DATA, base64Data);
     }
 
     @Override

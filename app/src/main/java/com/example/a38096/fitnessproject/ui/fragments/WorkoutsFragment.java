@@ -60,9 +60,8 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
 
         mPresenter.setView(this);
 
-        mAdapter = new WorkoutAdapter(null, this);
-//        mAdapter = new WorkoutAdapter(null, this::onWorkoutClick);
-        mPresenter.getWorkouts();
+        mAdapter = new WorkoutAdapter(loadTestData(), this);
+//        mPresenter.getWorkouts();
 
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);

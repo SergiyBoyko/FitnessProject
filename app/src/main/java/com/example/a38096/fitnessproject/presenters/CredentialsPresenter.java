@@ -44,16 +44,22 @@ public class CredentialsPresenter extends BasePresenter<CredentialsView> {
 
 //        getView().showSuccess();
 
-        addSubscription(mCredentialsDataSource.updateUser(mUserDataSource.getToken(), firstName, lastName, gender)
-                .retryWhen(new RxRetryWithDelay())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseBody -> {
-                    mUserDataSource.setFirstName(firstName);
-                    mUserDataSource.setSecondName(lastName);
-                    mUserDataSource.setGender(gender);
-                    getView().showSuccess();
-                }, new RxErrorAction(getView().getContext()))
+        addSubscription(mCredentialsDataSource.updateUser(
+                mUserDataSource.getToken(),
+                firstName,
+                lastName,
+                gender,
+                mUserDataSource.getBase64Data()
+                )
+                        .retryWhen(new RxRetryWithDelay())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(responseBody -> {
+                            mUserDataSource.setFirstName(firstName);
+                            mUserDataSource.setSecondName(lastName);
+                            mUserDataSource.setGender(gender);
+                            getView().showSuccess();
+                        }, new RxErrorAction(getView().getContext()))
         );
     }
 }

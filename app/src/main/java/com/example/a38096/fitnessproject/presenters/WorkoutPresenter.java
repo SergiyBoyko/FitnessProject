@@ -24,44 +24,53 @@ public class WorkoutPresenter extends BasePresenter<WorkoutView> {
     }
 
     public void getWorkouts() {
-        addSubscription(mWorkoutDataSource.getWorkouts(mDataSource.getToken())
-                .retryWhen(new RxRetryWithDelay())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workouts -> getView().showWorkouts(workouts),
-                        new RxErrorAction(getView().getContext()))
+        addSubscription(mWorkoutDataSource.getWorkouts(
+                mDataSource.getToken(), mDataSource.getBase64Data()
+                )
+                        .retryWhen(new RxRetryWithDelay())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(workouts -> getView().showWorkouts(workouts),
+                                new RxErrorAction(getView().getContext()))
         );
     }
 
     public void createWorkout(String type, int calories,
-                              int distance, int duration, long workoutDate) {
-        addSubscription(mWorkoutDataSource.createWorkout(mDataSource.getToken(), type, calories, distance, duration, workoutDate)
-                .retryWhen(new RxRetryWithDelay())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workouts -> getView().showWorkouts(null),
-                        new RxErrorAction(getView().getContext()))
+                              double distance, int duration, long workoutDate) {
+        addSubscription(mWorkoutDataSource.createWorkout(
+                mDataSource.getToken(), type, calories, distance, duration, workoutDate, mDataSource.getBase64Data()
+                )
+                        .retryWhen(new RxRetryWithDelay())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(workouts -> getView().showWorkouts(null),
+                                new RxErrorAction(getView().getContext()))
         );
     }
 
     public void updateWorkout(int workoutId, String type, int calories,
                               int distance, int duration, int workoutDate) {
-        addSubscription(mWorkoutDataSource.updateWorkout(mDataSource.getToken(), workoutId, type, calories, distance, duration, workoutDate)
-                .retryWhen(new RxRetryWithDelay())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workouts -> getView().showWorkouts(null),
-                        new RxErrorAction(getView().getContext()))
+        addSubscription(mWorkoutDataSource.updateWorkout(
+                mDataSource.getToken(), workoutId, type, calories, distance, duration, workoutDate,
+                mDataSource.getBase64Data()
+                )
+                        .retryWhen(new RxRetryWithDelay())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(workouts -> getView().showWorkouts(null),
+                                new RxErrorAction(getView().getContext()))
         );
     }
 
     public void deleteWorkout(long workoutId) {
-        addSubscription(mWorkoutDataSource.deleteWorkout(mDataSource.getToken(), (int) workoutId)
-                .retryWhen(new RxRetryWithDelay())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workouts -> getView().deleteWorkout((int) workoutId),
-                        new RxErrorAction(getView().getContext()))
+        addSubscription(mWorkoutDataSource.deleteWorkout(
+                mDataSource.getToken(), (int) workoutId, mDataSource.getBase64Data()
+                )
+                        .retryWhen(new RxRetryWithDelay())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(workouts -> getView().deleteWorkout((int) workoutId),
+                                new RxErrorAction(getView().getContext()))
         );
     }
 }

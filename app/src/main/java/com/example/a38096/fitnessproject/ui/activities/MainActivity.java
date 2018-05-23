@@ -26,13 +26,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.di.component.AppComponent;
+import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
+import com.example.a38096.fitnessproject.di.module.PresentersModule;
+import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.ui.fragments.OtherFragment;
 import com.example.a38096.fitnessproject.ui.fragments.WorkoutsFragment;
 import com.example.a38096.fitnessproject.utils.AndroidUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
 //    TextView tvMenuCredentials;
     @BindView(R.id.ivMenu)
     ImageView mIvMenu;
-
+    @Inject
+    IUserDataSource mUserDataSource;
     private TextView mTvTabWorkouts;
     private TextView mTvTabOthers;
-
     private MainViewPagerAdapter mAdapter;
 
     @Override
@@ -68,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        DaggerPresentersComponent.builder()
+                .appComponent(getAppComponent())
+                .presentersModule(new PresentersModule())
+                .build()
+                .inject(this);
 
         initViewPager();
         initTabLayout();
@@ -191,7 +204,16 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.tvMenuLogout)
     public void OnLogoutClick() {
+        mUserDataSource.clear();
         finish();
+    }
+
+    public AppComponent getAppComponent() {
+        return getApp().appComponent();
+    }
+
+    private AppFitness getApp() {
+        return (AppFitness) getApplication();
     }
 
     private class MainViewPagerAdapter extends FragmentPagerAdapter {

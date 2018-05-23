@@ -17,7 +17,7 @@ public class CredentialsRemoteDataSource implements ICredentialsDataSource {
     }
 
     @Override
-    public Observable<ResponseBody> updateUser(String uuid, String firstName, String lastName, String gender) {
-        return fitnessApi.updateUser(uuid, firstName, lastName, gender);
+    public Observable<ResponseBody> updateUser(String uuid, String firstName, String lastName, String gender, String loginPasswordBase64) {
+        return fitnessApi.updateUser(uuid, firstName, lastName, gender, loginPasswordBase64);
     }
 }

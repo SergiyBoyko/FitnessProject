@@ -41,8 +41,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             e.printStackTrace();
         }
 
-        login(base64);
-//        getView().goToMainActivity();
+//        login(base64);
+        getView().goToMainActivity();
     }
 
     private boolean isNotValidLoginPassword(String login, String password) {
@@ -68,6 +68,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     mDataSource.setFirstName(user.getFirstName());
                     mDataSource.setSecondName(user.getLastName());
                     mDataSource.setGender(user.getGender());
+                    mDataSource.setBase64Data(loginPasswordBase64);
                     getView().goToMainActivity();
                 }, new RxErrorAction(getView().getContext()))
         );

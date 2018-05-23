@@ -25,5 +25,9 @@ public interface IUserDataSource {
 
     void setGender(String genderName);
 
+    String getBase64Data();
+
+    void setBase64Data(String base64Data);
+
     void clear();
 }

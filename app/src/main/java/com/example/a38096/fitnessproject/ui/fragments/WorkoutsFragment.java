@@ -72,7 +72,7 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
 
     private List<Workout> loadTestData() {
         Workout workout = new Workout();
-        workout.setWorkoutDate("05.05.2018");
+        workout.setWorkoutDate(1527057000000L);
         workout.setType("Cross");
         workout.setCalories(50);
         workout.setDistance(51.15);
@@ -107,6 +107,7 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
         intent.putExtra(getString(R.string.distance_intent), workout.getDistance());
         startActivity(intent);
     }
+
 
     @Override
     public void onWorkoutLongClick(Workout workout) {

@@ -9,10 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.common.Constants;
 import com.example.a38096.fitnessproject.model.entities.Workout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +42,8 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvDate.setText(mWorkouts.get(position).getWorkoutDate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
+        holder.tvDate.setText(dateFormat.format(new Date(mWorkouts.get(position).getWorkoutDate())));
         holder.tvWorkoutType.setText(mWorkouts.get(position).getType());
         holder.tvCalories.setText(String.valueOf(mWorkouts.get(position).getCalories()));
         holder.tvDuration.setText(String.valueOf(mWorkouts.get(position).getDuration()));

@@ -24,7 +24,7 @@ public class Workout {
     private Integer duration;
     @SerializedName("workoutDate")
     @Expose
-    private String workoutDate;
+    private Long workoutDate;
 
     public Long getWorkoutId() {
         return workoutId;
@@ -66,11 +66,11 @@ public class Workout {
         this.duration = duration;
     }
 
-    public String getWorkoutDate() {
+    public Long getWorkoutDate() {
         return workoutDate;
     }
 
-    public void setWorkoutDate(String workoutDate) {
+    public void setWorkoutDate(Long workoutDate) {
         this.workoutDate = workoutDate;
     }
 }

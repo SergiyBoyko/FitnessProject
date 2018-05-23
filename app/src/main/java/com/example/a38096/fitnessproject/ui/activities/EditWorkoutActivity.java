@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 
 import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.common.Constants;
 import com.example.a38096.fitnessproject.di.component.AppComponent;
 import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
 import com.example.a38096.fitnessproject.di.module.PresentersModule;
@@ -19,7 +20,9 @@ import com.example.a38096.fitnessproject.model.entities.Workout;
 import com.example.a38096.fitnessproject.presenters.WorkoutPresenter;
 import com.example.a38096.fitnessproject.views.WorkoutView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -86,7 +89,9 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         workoutId = intent.getIntExtra(getString(R.string.id_intent), EMPTY_WORKOUT_ID);
 
         mTietDistance.setText(String.valueOf(workoutId));
-        mTietDate.setText(intent.getStringExtra(getString(R.string.date_intent)));
+        mDate = intent.getLongExtra(getString(R.string.date_intent), 0L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
+        mTietDate.setText(dateFormat.format(new Date(mDate)));
         mTietType.setText(intent.getStringExtra(getString(R.string.type_intent)));
         mTietDistance.setText(String.valueOf(intent.getDoubleExtra(getString(R.string.distance_intent), 0)));
         mTietDuration.setText(String.valueOf(intent.getIntExtra(getString(R.string.duration_intent), 0)));

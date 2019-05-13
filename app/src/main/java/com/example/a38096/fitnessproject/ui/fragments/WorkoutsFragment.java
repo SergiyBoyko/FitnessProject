@@ -108,7 +108,6 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
         startActivity(intent);
     }
 
-
     @Override
     public void onWorkoutLongClick(Workout workout) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

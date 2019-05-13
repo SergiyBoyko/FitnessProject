@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">FitnessProject</string>
+
+    <!--Google maps API-->
+    <string name="google_maps_API_key">AIzaSyAl8aGvN5MnFgGqyant4wlZ3GnEoiA0ous</string>
+
     <string name="request_execution_has_failed">Request execution has failed. Check your internet connection</string>
 
     <string name="login_button_enter">Login</string>

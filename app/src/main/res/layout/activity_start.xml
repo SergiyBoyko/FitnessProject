@@ -17,7 +17,6 @@
             android:background="@color/colorPrimary">
 
             <ImageView
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:src="@drawable/logo"
@@ -82,6 +81,7 @@
                     android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="8dp"
                     android:ems="10"
+                    android:text="admin@fitness.com"
                     android:hint="@string/register_email"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
@@ -103,6 +103,7 @@
                     android:drawableLeft="@drawable/ic_password"
                     android:drawablePadding="8dp"
                     android:ems="10"
+                    android:text="123321"
                     android:hint="@string/register_password"
                     android:inputType="textPassword"
                     android:textColor="@color/colorPrimaryDark" />

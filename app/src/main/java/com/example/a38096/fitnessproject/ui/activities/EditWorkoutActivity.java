@@ -20,6 +20,8 @@ import com.example.a38096.fitnessproject.model.entities.Workout;
 import com.example.a38096.fitnessproject.presenters.WorkoutPresenter;
 import com.example.a38096.fitnessproject.views.WorkoutView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,6 +120,11 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         datePickerDialog.show();
     }
 
+    @OnClick(R.id.tietDate)
+    public void onBirthDateFocused() {
+        onBirthDateClick();
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar birthDate = Calendar.getInstance();
@@ -134,6 +141,13 @@ public class EditWorkoutActivity extends AppCompatActivity implements
 
     @OnClick(R.id.btnSubmit)
     public void onSubmitClick() {
+        DateFormat format = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
+        try {
+            mDate = format.parse(mTietDate.getText().toString().trim()).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         if (workoutId == EMPTY_WORKOUT_ID) {
             mPresenter.createWorkout(
                     mTietType.getText().toString().trim(),

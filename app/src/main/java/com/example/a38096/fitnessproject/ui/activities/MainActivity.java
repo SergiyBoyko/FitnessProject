@@ -16,7 +16,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
@@ -26,11 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
-import com.example.a38096.fitnessproject.di.component.AppComponent;
-import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
-import com.example.a38096.fitnessproject.di.module.PresentersModule;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.ui.fragments.OtherFragment;
 import com.example.a38096.fitnessproject.ui.fragments.WorkoutsFragment;
@@ -45,26 +40,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseAppCompatActivity {
 
     @BindView(R.id.tlBottomNavigation)
-    TabLayout mTlBottomNavigation;
+    protected TabLayout mTlBottomNavigation;
     @BindView(R.id.toolbarMain)
-    Toolbar mToolbar;
+    protected Toolbar mToolbar;
     @BindView(R.id.mainViewPager)
-    ViewPager mViewPager;
+    protected ViewPager mViewPager;
     @BindView(R.id.navigationDrawer)
-    DrawerLayout mDrawerLayout;
+    protected DrawerLayout mDrawerLayout;
     @BindView(R.id.navigationView)
-    NavigationView mNavigationView;
+    protected NavigationView mNavigationView;
     @BindView(R.id.tvToolbarTitle)
-    TextView mTvToolbarTitle;
-    //    @BindView(R.id.tvMenuCredentials)
-//    TextView tvMenuCredentials;
+    protected TextView mTvToolbarTitle;
     @BindView(R.id.ivMenu)
-    ImageView mIvMenu;
+    protected ImageView mIvMenu;
     @Inject
-    IUserDataSource mUserDataSource;
+    protected IUserDataSource userDataSource;
     private TextView mTvTabWorkouts;
     private TextView mTvTabOthers;
     private MainViewPagerAdapter mAdapter;
@@ -76,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        DaggerPresentersComponent.builder()
-                .appComponent(getAppComponent())
-                .presentersModule(new PresentersModule())
-                .build()
-                .inject(this);
+        getPresentersComponent().inject(this);
 
         initViewPager();
         initTabLayout();
@@ -140,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.addFragmentTitle(getString(R.string.tab_other));
 
         mViewPager.setAdapter(mAdapter);
-//        mViewPager.addOnPageChangeListener(mPresenter);
+//        mViewPager.addOnPageChangeListener(presenter);
 //        mViewPager.setOffscreenPageLimit(3);
     }
 
@@ -204,16 +193,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.tvMenuLogout)
     public void OnLogoutClick() {
-        mUserDataSource.clear();
+        userDataSource.clear();
         finish();
-    }
-
-    public AppComponent getAppComponent() {
-        return getApp().appComponent();
-    }
-
-    private AppFitness getApp() {
-        return (AppFitness) getApplication();
     }
 
     private class MainViewPagerAdapter extends FragmentPagerAdapter {

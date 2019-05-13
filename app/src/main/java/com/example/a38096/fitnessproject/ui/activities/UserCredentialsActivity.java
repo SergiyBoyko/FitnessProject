@@ -1,20 +1,14 @@
 package com.example.a38096.fitnessproject.ui.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
-import com.example.a38096.fitnessproject.di.component.AppComponent;
-import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
-import com.example.a38096.fitnessproject.di.module.PresentersModule;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.presenters.CredentialsPresenter;
 import com.example.a38096.fitnessproject.views.CredentialsView;
@@ -28,43 +22,38 @@ import butterknife.OnClick;
 /**
  * Created by Serhii Boiko on 13.05.2018.
  */
-public class UserCredentialsActivity extends AppCompatActivity implements CredentialsView {
+public class UserCredentialsActivity extends BaseAppCompatActivity<CredentialsView> implements CredentialsView {
 
     @BindView(R.id.tilFirstName)
-    TextInputLayout mTilFirstName;
+    protected TextInputLayout mTilFirstName;
     @BindView(R.id.tietFirstName)
-    TextInputEditText mTietFirstName;
+    protected TextInputEditText mTietFirstName;
 
     @BindView(R.id.tilSecondName)
-    TextInputLayout mTilSecondName;
+    protected TextInputLayout mTilSecondName;
     @BindView(R.id.tietSecondName)
-    TextInputEditText mTietSecondName;
+    protected TextInputEditText mTietSecondName;
 
     @BindView(R.id.rbMale)
-    AppCompatRadioButton mRbMale;
+    protected AppCompatRadioButton mRbMale;
 
     @BindView(R.id.rbFemale)
-    AppCompatRadioButton mRbFemale;
+    protected AppCompatRadioButton mRbFemale;
 
     @Inject
-    CredentialsPresenter mPresenter;
+    protected CredentialsPresenter mPresenter;
 
     @Inject
-    IUserDataSource mUserDataSource;
+    protected IUserDataSource mUserDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_credentials);
-
         ButterKnife.bind(this);
 
-        DaggerPresentersComponent.builder()
-                .appComponent(getAppComponent())
-                .presentersModule(new PresentersModule())
-                .build()
-                .inject(this);
+        getPresentersComponent().inject(this);
+        registerPresenterLifecycle(mPresenter, this);
 
         mPresenter.setView(this);
 
@@ -76,9 +65,8 @@ public class UserCredentialsActivity extends AppCompatActivity implements Creden
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
+        if (menuItem.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
         return (super.onOptionsItemSelected(menuItem));
     }
@@ -122,19 +110,5 @@ public class UserCredentialsActivity extends AppCompatActivity implements Creden
     private void clearErrors() {
         mTilFirstName.setError(null);
         mTilSecondName.setError(null);
-    }
-
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-    public AppComponent getAppComponent() {
-        return getApp().appComponent();
-    }
-
-    private AppFitness getApp() {
-        return (AppFitness) getApplication();
     }
 }

@@ -1,9 +1,15 @@
 package com.example.a38096.fitnessproject.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.StringRes;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by Serhii Boiko on 05.05.2018.
@@ -38,5 +44,38 @@ public class AndroidUtils {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getCurrentFocus() != null) {
+            final InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(
+                    INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
+                    0);
+        }
+    }
+
+    public static void showShortToast(Context context, String text) {
+        if (context == null) return;
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showShortToast(Context context, @StringRes int textRes) {
+        if (context == null) return;
+        Toast.makeText(context, context.getString(textRes), Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showLongToast(Context context, String text) {
+        if (context == null) return;
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    }
+
+    public static void showLongToast(Context context, @StringRes int textRes) {
+        if (context == null) return;
+        Toast.makeText(context, context.getString(textRes), Toast.LENGTH_LONG).show();
+    }
+
+    public static void showDeveloping(Context context) {
+        showShortToast(context, "Эта функция еще в разработке");
     }
 }

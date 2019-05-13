@@ -9,10 +9,11 @@ import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
 import com.example.a38096.fitnessproject.views.RegisterView;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by Serhii Boiko on 06.05.2018.
@@ -35,33 +36,33 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         }
         // TODO: 12.05.2018 add login request
         register(firstName, lastName, email, password, gender);
-//        getView().goToMainActivity();
+//        view.goToMainActivity();
     }
 
     private boolean isNotValidRegisterData(String firstName, String lastName, String email,
                                            String password, String passwordRepeat) {
         if (TextUtils.isEmpty(firstName)) {
-            getView().showEmptyFirstNameError();
+            view.showEmptyFirstNameError();
             return true;
         }
         if (TextUtils.isEmpty(lastName)) {
-            getView().showEmptySecondNameError();
+            view.showEmptySecondNameError();
             return true;
         }
         if (TextUtils.isEmpty(email)) {
-            getView().showEmptyeMailError();
+            view.showEmptyeMailError();
             return true;
         }
         if (TextUtils.isEmpty(password)) {
-            getView().showEmptyPasswordError();
+            view.showEmptyPasswordError();
             return true;
         }
         if (TextUtils.isEmpty(passwordRepeat)) {
-            getView().showEmptyPasswordRepeatError();
+            view.showEmptyPasswordRepeatError();
             return true;
         }
         if (!password.equals(passwordRepeat)) {
-            getView().showWrongPasswordRepeatError();
+            view.showWrongPasswordRepeatError();
             return true;
         }
         return false;
@@ -70,14 +71,10 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
     private void register(String firstName, String lastName, String email, String password, String gender) {
         String source = email + ":" + password;
         String base64 = null;
-        try {
-            base64 = "Basic " + Base64.encodeToString(source.trim().getBytes("UTF-8"), Base64.NO_WRAP);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        base64 = "Basic " + Base64.encodeToString(source.trim().getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
 
         String finalBase64 = base64;
-        addSubscription(registerDataSource.registerUser(firstName, lastName, email, password, gender)
+        addDisposable(registerDataSource.registerUser(firstName, lastName, email, password, gender)
                 .retryWhen(new RxRetryWithDelay())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -88,9 +85,9 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
                     mDataSource.setSecondName(user.getLastName());
                     mDataSource.setGender(user.getGender());
                     mDataSource.setBase64Data(finalBase64);
-                    getView().goToMainActivity();
+                    view.goToMainActivity();
 
-                }, new RxErrorAction(getView().getContext()))
+                }, new RxErrorAction(view))
         );
     }
 }

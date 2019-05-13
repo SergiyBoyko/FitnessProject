@@ -1,18 +1,12 @@
 package com.example.a38096.fitnessproject.ui.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 
-import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
-import com.example.a38096.fitnessproject.di.component.AppComponent;
-import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
-import com.example.a38096.fitnessproject.di.module.PresentersModule;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.presenters.LoginPresenter;
 import com.example.a38096.fitnessproject.views.LoginView;
@@ -26,38 +20,34 @@ import butterknife.OnClick;
 /**
  * Created by Serhii Boiko on 01.05.2018.
  */
-public class StartActivity extends AppCompatActivity implements LoginView {
+public class StartActivity extends BaseAppCompatActivity<LoginView> implements LoginView {
 
     @BindView(R.id.tilEmail)
-    TextInputLayout mTilEmail;
+    protected TextInputLayout mTilEmail;
 
     @BindView(R.id.tilPassword)
-    TextInputLayout mTilPassword;
+    protected TextInputLayout mTilPassword;
 
     @BindView(R.id.tietEmail)
-    TextInputEditText mTietEmail;
+    protected TextInputEditText mTietEmail;
 
     @BindView(R.id.tietPassword)
-    TextInputEditText mTietPassword;
+    protected TextInputEditText mTietPassword;
 
     @Inject
-    LoginPresenter mPresenter;
+    protected LoginPresenter mPresenter;
 
     @Inject
-    IUserDataSource mUserDataSource;
+    protected IUserDataSource mUserDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
         ButterKnife.bind(this);
 
-        DaggerPresentersComponent.builder()
-                .appComponent(getAppComponent())
-                .presentersModule(new PresentersModule())
-                .build()
-                .inject(this);
+        getPresentersComponent().inject(this);
+        registerPresenterLifecycle(mPresenter, this);
 
         mPresenter.setView(this);
 
@@ -106,16 +96,4 @@ public class StartActivity extends AppCompatActivity implements LoginView {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-    public AppComponent getAppComponent() {
-        return getApp().appComponent();
-    }
-
-    private AppFitness getApp() {
-        return (AppFitness) getApplication();
-    }
 }

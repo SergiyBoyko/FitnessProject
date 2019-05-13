@@ -6,8 +6,8 @@ import com.example.a38096.fitnessproject.model.entities.Workout;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import rx.Observable;
 
 /**
  * Created by Serhii Boiko on 06.05.2018.

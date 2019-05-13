@@ -3,8 +3,8 @@ package com.example.a38096.fitnessproject.model.remote;
 import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import rx.Observable;
 
 /**
  * Created by Serhii Boiko on 14.05.2018.

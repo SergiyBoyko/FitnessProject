@@ -1,23 +1,17 @@
 package com.example.a38096.fitnessproject.ui.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
-import com.example.a38096.fitnessproject.di.component.AppComponent;
-import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
-import com.example.a38096.fitnessproject.di.module.PresentersModule;
 import com.example.a38096.fitnessproject.model.entities.Workout;
 import com.example.a38096.fitnessproject.presenters.WorkoutPresenter;
 import com.example.a38096.fitnessproject.ui.activities.EditWorkoutActivity;
@@ -36,38 +30,35 @@ import butterknife.OnClick;
 /**
  * Created by Serhii Boiko on 05.05.2018.
  */
-public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAdapter.OnWorkoutClickListener {
+public class WorkoutsFragment extends BaseFragment<WorkoutView> implements WorkoutView, WorkoutAdapter.OnWorkoutClickListener {
     @BindView(R.id.rvRecyclerView)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     @Inject
-    WorkoutPresenter mPresenter;
+    protected WorkoutPresenter presenter;
 
     private WorkoutAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_workout, container, false);
+        return inflater.inflate(R.layout.fragment_workout, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        DaggerPresentersComponent.builder()
-                .appComponent(getAppComponent())
-                .presentersModule(new PresentersModule())
-                .build()
-                .inject(this);
-
-        mPresenter.setView(this);
+        getPresentersComponent().inject(this);
+        registerPresenterLifecycle(presenter, this);
 
         mAdapter = new WorkoutAdapter(null, this);
-        mPresenter.getWorkouts();
+        presenter.getWorkouts();
 
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        return view;
     }
 
     private List<Workout> loadTestData() {
@@ -88,14 +79,6 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
         startActivity(intent);
     }
 
-    public AppComponent getAppComponent() {
-        return getApp().appComponent();
-    }
-
-    private AppFitness getApp() {
-        return (AppFitness) getActivity().getApplication();
-    }
-
     @Override
     public void onWorkoutClick(Workout workout) {
         Intent intent = new Intent(getActivity(), EditWorkoutActivity.class);
@@ -112,15 +95,12 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
     public void onWorkoutLongClick(Workout workout) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Delete this workout?")
-                .setPositiveButton(R.string.delete_action, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        mPresenter.deleteWorkout(workout.getWorkoutId());
-                    }
-                })
-                .setNegativeButton(R.string.cancel_action, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
+                .setPositiveButton(
+                        R.string.delete_action,
+                        (dialog, id) -> presenter.deleteWorkout(workout.getWorkoutId())
+                )
+                .setNegativeButton(R.string.cancel_action, (dialog, id) -> {
+                    // User cancelled the dialog
                 });
         // Create the AlertDialog object and return it
         builder.create().show();
@@ -129,8 +109,8 @@ public class WorkoutsFragment extends Fragment implements WorkoutView, WorkoutAd
     @Override
     public void onResume() {
         super.onResume();
-        if(mPresenter != null) {
-            mPresenter.getWorkouts();
+        if (presenter != null) {
+            presenter.getWorkouts();
         }
     }
 

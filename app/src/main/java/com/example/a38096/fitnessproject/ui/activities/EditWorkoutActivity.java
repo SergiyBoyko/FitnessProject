@@ -6,16 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 
-import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.common.Constants;
-import com.example.a38096.fitnessproject.di.component.AppComponent;
-import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
-import com.example.a38096.fitnessproject.di.module.PresentersModule;
 import com.example.a38096.fitnessproject.model.entities.Workout;
 import com.example.a38096.fitnessproject.presenters.WorkoutPresenter;
 import com.example.a38096.fitnessproject.views.WorkoutView;
@@ -37,25 +32,25 @@ import butterknife.OnClick;
 /**
  * Created by Serhii Boiko on 09.05.2018.
  */
-public class EditWorkoutActivity extends AppCompatActivity implements
+public class EditWorkoutActivity extends BaseAppCompatActivity<WorkoutView> implements
         DatePickerDialog.OnDateSetListener, WorkoutView {
     public static final long EMPTY_WORKOUT_ID = -100L;
     @BindView(R.id.tietDate)
-    TextInputEditText mTietDate;
+    protected TextInputEditText dateInput;
 
     @BindView(R.id.tietType)
-    TextInputEditText mTietType;
+    protected TextInputEditText typeInput;
 
     @BindView(R.id.tietDistance)
-    TextInputEditText mTietDistance;
+    protected TextInputEditText distanceInput;
 
     @BindView(R.id.tietDuration)
-    TextInputEditText mTietDuration;
+    protected TextInputEditText durationInput;
 
     @BindView(R.id.tietCalories)
-    TextInputEditText mTietCalories;
+    protected TextInputEditText caloriesInput;
     @Inject
-    WorkoutPresenter mPresenter;
+    WorkoutPresenter presenter;
     private long mDate;
 
     private long workoutId;
@@ -76,13 +71,8 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_edit_workout);
         ButterKnife.bind(this);
 
-        DaggerPresentersComponent.builder()
-                .appComponent(getAppComponent())
-                .presentersModule(new PresentersModule())
-                .build()
-                .inject(this);
-
-        mPresenter.setView(this);
+        getPresentersComponent().inject(this);
+        registerPresenterLifecycle(presenter, this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -90,14 +80,14 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         workoutId = intent.getLongExtra(getString(R.string.id_intent), EMPTY_WORKOUT_ID);
 
-        mTietDistance.setText(String.valueOf(workoutId));
+        distanceInput.setText(String.valueOf(workoutId));
         mDate = intent.getLongExtra(getString(R.string.date_intent), 0L);
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
-        mTietDate.setText(dateFormat.format(new Date(mDate)));
-        mTietType.setText(intent.getStringExtra(getString(R.string.type_intent)));
-        mTietDistance.setText(String.valueOf(intent.getDoubleExtra(getString(R.string.distance_intent), 0)));
-        mTietDuration.setText(String.valueOf(intent.getIntExtra(getString(R.string.duration_intent), 0)));
-        mTietCalories.setText(String.valueOf(intent.getIntExtra(getString(R.string.calories_intent), 0)));
+        dateInput.setText(dateFormat.format(new Date(mDate)));
+        typeInput.setText(intent.getStringExtra(getString(R.string.type_intent)));
+        distanceInput.setText(String.valueOf(intent.getDoubleExtra(getString(R.string.distance_intent), 0)));
+        durationInput.setText(String.valueOf(intent.getIntExtra(getString(R.string.duration_intent), 0)));
+        caloriesInput.setText(String.valueOf(intent.getIntExtra(getString(R.string.calories_intent), 0)));
     }
 
     @Override
@@ -133,44 +123,36 @@ public class EditWorkoutActivity extends AppCompatActivity implements
         birthDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         mDate = birthDate.getTimeInMillis();
 
-        mTietDate.setText(formatDateNumber(year, month, dayOfMonth));
-        mTietDate.setActivated(false);
-        mTietDate.clearFocus();
-        mTietType.requestFocus();
+        dateInput.setText(formatDateNumber(year, month, dayOfMonth));
+        dateInput.setActivated(false);
+        dateInput.clearFocus();
+        typeInput.requestFocus();
     }
 
     @OnClick(R.id.btnSubmit)
     public void onSubmitClick() {
         DateFormat format = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
         try {
-            mDate = format.parse(mTietDate.getText().toString().trim()).getTime();
+            mDate = format.parse(dateInput.getText().toString().trim()).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         if (workoutId == EMPTY_WORKOUT_ID) {
-            mPresenter.createWorkout(
-                    mTietType.getText().toString().trim(),
-                    Integer.parseInt(mTietCalories.getText().toString().trim()),
-                    Double.parseDouble(mTietDistance.getText().toString().trim()),
-                    Integer.parseInt(mTietDuration.getText().toString().trim()),
+            presenter.createWorkout(
+                    typeInput.getText().toString().trim(),
+                    Integer.parseInt(caloriesInput.getText().toString().trim()),
+                    Double.parseDouble(distanceInput.getText().toString().trim()),
+                    Integer.parseInt(durationInput.getText().toString().trim()),
                     mDate
             );
         } else {
-            mPresenter.updateWorkout(workoutId, mTietType.getText().toString().trim(),
-                    Integer.parseInt(mTietCalories.getText().toString().trim()),
-                    Double.parseDouble(mTietDistance.getText().toString().trim()),
-                    Integer.parseInt(mTietDuration.getText().toString().trim()),
+            presenter.updateWorkout(workoutId, typeInput.getText().toString().trim(),
+                    Integer.parseInt(caloriesInput.getText().toString().trim()),
+                    Double.parseDouble(distanceInput.getText().toString().trim()),
+                    Integer.parseInt(durationInput.getText().toString().trim()),
                     mDate);
         }
-    }
-
-    public AppComponent getAppComponent() {
-        return getApp().appComponent();
-    }
-
-    private AppFitness getApp() {
-        return (AppFitness) getApplication();
     }
 
     @Override

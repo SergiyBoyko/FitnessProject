@@ -1,27 +1,47 @@
 package com.example.a38096.fitnessproject.utils.rx;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.utils.AndroidUtils;
+import com.example.a38096.fitnessproject.views.BaseView;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Serhii Boiko on 01.05.2018.
  */
-public class RxErrorAction implements Action1<Throwable> {
-    private final Context context;
+public class RxErrorAction implements Consumer<Throwable> {
 
-    public RxErrorAction(Context context) {
-        this.context = context;
+    private static final String TAG = RxErrorAction.class.getSimpleName();
+    private final BaseView baseView;
+    private Runnable runnable;
+    private boolean show = true;
+
+    public RxErrorAction(BaseView baseView) {
+        this.baseView = baseView;
+    }
+
+    public RxErrorAction(BaseView baseView, Runnable onErrorAction) {
+        this.baseView = baseView;
+        this.runnable = onErrorAction;
     }
 
     @Override
-    public void call(Throwable throwable) {
+    public void accept(Throwable throwable) {
         throwable.printStackTrace();
+        Log.e(TAG, throwable.getMessage());
 
-        Toast.makeText(context, context.getString(R.string.request_execution_has_failed),
-                Toast.LENGTH_SHORT).show();
+        if (baseView != null && baseView.getContext() != null && show) {
+            AndroidUtils.showShortToast(baseView.getContext(), throwable.getLocalizedMessage());
+        }
+
+        if (runnable != null) {
+            runnable.run();
+        }
+    }
+
+    public RxErrorAction showToast(boolean show) {
+        this.show = show;
+        return this;
     }
 }

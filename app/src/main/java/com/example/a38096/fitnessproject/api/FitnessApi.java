@@ -5,6 +5,7 @@ import com.example.a38096.fitnessproject.model.entities.Workout;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -13,7 +14,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by Serhii Boiko on 01.05.2018.

@@ -8,8 +8,8 @@ import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
 import com.example.a38096.fitnessproject.views.CredentialsView;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Serhii Boiko on 14.05.2018.
@@ -44,7 +44,7 @@ public class CredentialsPresenter extends BasePresenter<CredentialsView> {
 
 //        getView().showSuccess();
 
-        addSubscription(mCredentialsDataSource.updateUser(
+        addDisposable(mCredentialsDataSource.updateUser(
                 mUserDataSource.getToken(),
                 firstName,
                 lastName,
@@ -59,7 +59,7 @@ public class CredentialsPresenter extends BasePresenter<CredentialsView> {
                             mUserDataSource.setSecondName(lastName);
                             mUserDataSource.setGender(gender);
                             getView().showSuccess();
-                        }, new RxErrorAction(getView().getContext()))
+                        }, new RxErrorAction(view))
         );
     }
 }

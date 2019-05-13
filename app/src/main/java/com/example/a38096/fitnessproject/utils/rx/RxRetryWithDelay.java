@@ -2,14 +2,15 @@ package com.example.a38096.fitnessproject.utils.rx;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.functions.Func1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+
 
 /**
  * Created by Serhii Boiko on 01.05.2018.
  */
 public class RxRetryWithDelay implements
-        Func1<Observable<? extends Throwable>, Observable<?>> {
+        Function<Observable<? extends Throwable>, Observable<?>> {
 
     private int maxRetries = 3;
     private long retryDelayMillis = 500;
@@ -32,9 +33,9 @@ public class RxRetryWithDelay implements
     }
 
     @Override
-    public Observable<?> call(Observable<? extends Throwable> attempts) {
-        return attempts
-                .flatMap((Func1<Throwable, Observable<?>>) throwable -> {
+    public Observable<?> apply(Observable<? extends Throwable> observable) throws Exception {
+        return observable
+                .flatMap((Function<Throwable, Observable<?>>) throwable -> {
                     if (++retryCount < maxRetries) {
                         // When this Observable calls onNext, the original
                         // Observable will be retried (i.e. re-subscribed).
@@ -45,5 +46,4 @@ public class RxRetryWithDelay implements
                     return Observable.error(throwable);
                 });
     }
-
 }

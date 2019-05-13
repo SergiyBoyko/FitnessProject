@@ -4,7 +4,7 @@ import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.model.ILoginDataSource;
 import com.example.a38096.fitnessproject.model.entities.User;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by Serhii Boiko on 06.05.2018.

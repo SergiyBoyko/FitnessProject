@@ -1,145 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <VideoView
+        android:id="@+id/video_background"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:foreground="#BF000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.example.a38096.fitnessproject.ui.fragments.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/flLogoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.9"
-            android:background="@color/colorPrimary">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:src="@drawable/logo"
-                android:tint="@android:color/white"
-                android:layout_marginBottom="48dp" />
-        </FrameLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.1" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:id="@+id/tvRegisterButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/login_button_register"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp" />
-
-    </FrameLayout>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:paddingBottom="16dp">
-
-        <RelativeLayout
-            android:id="@+id/rlCredentialsContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/login_frame_background"
-            android:elevation="4dp"
-            android:padding="32dp">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tilEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/tietEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="8dp"
-                    android:ems="10"
-                    android:text="admin@fitness.com"
-                    android:hint="@string/register_email"
-                    android:inputType="textEmailAddress" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tilPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/tilEmail"
-                android:layout_alignRight="@id/tilEmail"
-                android:layout_below="@id/tilEmail"
-                android:layout_marginTop="16dp"
-                app:passwordToggleTint="@color/colorPrimaryDark">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/tietPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_password"
-                    android:drawablePadding="8dp"
-                    android:ems="10"
-                    android:text="123321"
-                    android:hint="@string/register_password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/colorPrimaryDark" />
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvPasswordRecovery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tilPassword"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="12dp"
-                android:clickable="true"
-                android:text="@string/login_button_password_recovery"
-                android:textColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/llEnterButtonContainer"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="48dp"
-            android:layout_marginRight="48dp"
-            android:background="@drawable/button_dark_gradient"
-            android:elevation="4dp">
-
-            <Button
-                android:id="@+id/btnEnter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:text="@string/login_button_enter"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-    </FrameLayout>
-</RelativeLayout>
+        tools:layout="@layout/fragment_login" />
+</android.support.constraint.ConstraintLayout>

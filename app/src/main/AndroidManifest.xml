@@ -33,15 +33,17 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeMain">
+            android:theme="@style/AppTheme.NoTitle">
 
         </activity>
         <activity
             android:name=".ui.activities.StartActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
         <activity
             android:name=".ui.activities.RegisterActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
         <activity
             android:name=".ui.activities.EditWorkoutActivity"
             android:screenOrientation="portrait" />

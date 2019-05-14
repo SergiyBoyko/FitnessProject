@@ -1,15 +1,19 @@
-package com.example.a38096.fitnessproject.ui.activities;
+package com.example.a38096.fitnessproject.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatRadioButton;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.presenters.RegisterPresenter;
+import com.example.a38096.fitnessproject.ui.activities.MainActivity;
 import com.example.a38096.fitnessproject.views.RegisterView;
 
 import javax.inject.Inject;
@@ -19,9 +23,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Serhii Boiko on 01.05.2018.
+ * Created by Serhii Boiko on 14.05.2019.
  */
-public class RegisterActivity extends BaseAppCompatActivity<RegisterView> implements RegisterView {
+public class RegisterFragment extends BaseFragment<RegisterView> implements RegisterView {
 
     @BindView(R.id.tilFirstName)
     TextInputLayout mTilFirstName;
@@ -54,33 +58,21 @@ public class RegisterActivity extends BaseAppCompatActivity<RegisterView> implem
     @Inject
     RegisterPresenter presenter;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_register);
-        ButterKnife.bind(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_register, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ButterKnife.bind(this, view);
 
         getPresentersComponent().inject(this);
         registerPresenterLifecycle(presenter, this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(0,
-                R.anim.activity_up_close);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-        }
-        return (super.onOptionsItemSelected(menuItem));
     }
 
     @OnClick(R.id.btnSubmit)
@@ -105,7 +97,7 @@ public class RegisterActivity extends BaseAppCompatActivity<RegisterView> implem
 
     @Override
     public void goToMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
 
     @Override

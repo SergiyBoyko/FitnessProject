@@ -8,6 +8,8 @@ import com.example.a38096.fitnessproject.ui.activities.MainActivity;
 import com.example.a38096.fitnessproject.ui.activities.RegisterActivity;
 import com.example.a38096.fitnessproject.ui.activities.StartActivity;
 import com.example.a38096.fitnessproject.ui.activities.UserCredentialsActivity;
+import com.example.a38096.fitnessproject.ui.fragments.LoginFragment;
+import com.example.a38096.fitnessproject.ui.fragments.RegisterFragment;
 import com.example.a38096.fitnessproject.ui.fragments.WorkoutsFragment;
 
 import dagger.Component;
@@ -25,6 +27,10 @@ import dagger.Component;
 public interface PresentersComponent {
 
     void inject(StartActivity startActivity);
+
+    void inject(LoginFragment loginFragment);
+
+    void inject(RegisterFragment registerFragment);
 
     void inject(RegisterActivity registerActivity);
 

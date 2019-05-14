@@ -35,8 +35,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         String base64 = null;
         base64 = "Basic " + Base64.encodeToString(source.trim().getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
 
-        login(base64);
-        //getView().goToMainActivity();
+//        login(base64);
+        view.goToMainActivity();
     }
 
     private boolean isNotValidLoginPassword(String login, String password) {

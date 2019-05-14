@@ -6,7 +6,8 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/splash_foreground" />
+            android:src="@drawable/logo"
+            android:tint="@android:color/white" />
     </item>
 
 </layer-list>

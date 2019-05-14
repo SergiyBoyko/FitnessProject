@@ -41,10 +41,10 @@ public class UserCredentialsActivity extends BaseAppCompatActivity<CredentialsVi
     protected AppCompatRadioButton mRbFemale;
 
     @Inject
-    protected CredentialsPresenter mPresenter;
+    protected CredentialsPresenter presenter;
 
     @Inject
-    protected IUserDataSource mUserDataSource;
+    protected IUserDataSource userDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,9 +53,8 @@ public class UserCredentialsActivity extends BaseAppCompatActivity<CredentialsVi
         ButterKnife.bind(this);
 
         getPresentersComponent().inject(this);
-        registerPresenterLifecycle(mPresenter, this);
+        registerPresenterLifecycle(presenter, this);
 
-        mPresenter.setView(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -72,17 +71,17 @@ public class UserCredentialsActivity extends BaseAppCompatActivity<CredentialsVi
     }
 
     private void initUserData() {
-        if (mUserDataSource.isAuthorized()) {
-            mTietFirstName.setText(mUserDataSource.getFirstName());
-            mTietSecondName.setText(mUserDataSource.getSecondName());
-            mRbMale.setChecked(mUserDataSource.getGender().equals("M"));
-            mRbFemale.setChecked(mUserDataSource.getGender().equals("W"));
+        if (userDataSource.isAuthorized()) {
+            mTietFirstName.setText(userDataSource.getFirstName());
+            mTietSecondName.setText(userDataSource.getSecondName());
+            mRbMale.setChecked(userDataSource.getGender().equals("M"));
+            mRbFemale.setChecked(userDataSource.getGender().equals("W"));
         }
     }
 
     @OnClick(R.id.btnSubmit)
     public void onSubmitClick() {
-        mPresenter.updateUser(
+        presenter.updateUser(
                 mTietFirstName.getText().toString().trim(),
                 mTietSecondName.getText().toString().trim(),
                 mRbMale.isChecked() ? "M" : "W"

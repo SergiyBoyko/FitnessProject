@@ -10,7 +10,7 @@ import io.reactivex.Observable;
  * Created by Serhii Boiko on 06.05.2018.
  */
 public class LoginRemoteDataSource implements ILoginDataSource {
-    private FitnessApi fitnessApi;
+    private final FitnessApi fitnessApi;
 
     public LoginRemoteDataSource(FitnessApi fitnessApi) {
         this.fitnessApi = fitnessApi;

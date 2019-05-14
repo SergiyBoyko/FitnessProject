@@ -62,7 +62,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     mDataSource.setSecondName(user.getLastName());
                     mDataSource.setGender(user.getGender());
                     mDataSource.setBase64Data(loginPasswordBase64);
-                    getView().goToMainActivity();
+                    view.goToMainActivity();
                 }, new RxErrorAction(view))
         );
     }

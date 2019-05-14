@@ -35,10 +35,10 @@ public class StartActivity extends BaseAppCompatActivity<LoginView> implements L
     protected TextInputEditText mTietPassword;
 
     @Inject
-    protected LoginPresenter mPresenter;
+    protected LoginPresenter presenter;
 
     @Inject
-    protected IUserDataSource mUserDataSource;
+    protected IUserDataSource userDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,15 +47,13 @@ public class StartActivity extends BaseAppCompatActivity<LoginView> implements L
         ButterKnife.bind(this);
 
         getPresentersComponent().inject(this);
-        registerPresenterLifecycle(mPresenter, this);
-
-        mPresenter.setView(this);
+        registerPresenterLifecycle(presenter, this);
 
         checkIfAuthorized();
     }
 
     private void checkIfAuthorized() {
-        if (mUserDataSource.isAuthorized()) {
+        if (userDataSource.isAuthorized()) {
             goToMainActivity();
         }
     }
@@ -68,7 +66,7 @@ public class StartActivity extends BaseAppCompatActivity<LoginView> implements L
 
     @OnClick(R.id.btnEnter)
     protected void onEnterClick() {
-        mPresenter.onEnterClicked(
+        presenter.onEnterClicked(
                 mTietEmail.getText().toString(),
                 mTietPassword.getText().toString()
         );

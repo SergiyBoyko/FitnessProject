@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.a38096.fitnessproject"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -19,17 +19,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-}
-
-// retrolambda
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
     }
 }
 
@@ -52,17 +41,18 @@ dependencies {
     // retrofit2 support
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.7.5'
-    // gson support
-    implementation 'com.google.code.gson:gson:2.8.2'
-    // dagger support
-    implementation 'com.google.dagger:dagger:2.16'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2'
-    // rx support
+    // rxjava2 support
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    // gson support
+    implementation 'com.google.code.gson:gson:2.8.2'
+    // dagger 2 support
+    implementation 'com.google.dagger:dagger:2.16'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
     // multidex support
     implementation 'com.android.support:multidex:1.0.3'
     // multidex support

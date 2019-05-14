@@ -4,13 +4,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Created by Serhii Boiko on 01.05.2018.
+ * Created by Serhii Boiko on 17.10.2018.
  */
 
 @javax.inject.Scope
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Scope {
-
     String value() default "";
-
 }

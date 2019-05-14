@@ -50,7 +50,7 @@ public class EditWorkoutActivity extends BaseAppCompatActivity<WorkoutView> impl
     @BindView(R.id.tietCalories)
     protected TextInputEditText caloriesInput;
     @Inject
-    WorkoutPresenter presenter;
+    protected WorkoutPresenter presenter;
     private long mDate;
 
     private long workoutId;

@@ -2,6 +2,8 @@ package com.example.a38096.fitnessproject;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.example.a38096.fitnessproject.di.component.DaggerAppComponent;
+import com.example.a38096.fitnessproject.di.component.DaggerPresentersComponent;
 import com.example.a38096.fitnessproject.di.component.PresentersComponent;
 import com.example.a38096.fitnessproject.di.module.ApiModule;
 import com.example.a38096.fitnessproject.di.module.AppModule;

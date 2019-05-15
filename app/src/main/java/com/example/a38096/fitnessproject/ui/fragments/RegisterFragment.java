@@ -58,6 +58,10 @@ public class RegisterFragment extends BaseFragment<RegisterView> implements Regi
     @Inject
     RegisterPresenter presenter;
 
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -113,7 +117,7 @@ public class RegisterFragment extends BaseFragment<RegisterView> implements Regi
     }
 
     @Override
-    public void showEmptyeMailError() {
+    public void showEmptyEmailError() {
         clearErrors();
         mTilEmail.setError(getString(R.string.register_error_empty_email));
     }

@@ -34,9 +34,8 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         if (isNotValidRegisterData(firstName, lastName, email, password, passwordRepeat)) {
             return;
         }
-        // TODO: 12.05.2018 add login request
-        register(firstName, lastName, email, password, gender);
-//        view.goToMainActivity();
+//        register(firstName, lastName, email, password, gender);
+        view.goToMainActivity();
     }
 
     private boolean isNotValidRegisterData(String firstName, String lastName, String email,
@@ -50,7 +49,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             return true;
         }
         if (TextUtils.isEmpty(email)) {
-            view.showEmptyeMailError();
+            view.showEmptyEmailError();
             return true;
         }
         if (TextUtils.isEmpty(password)) {

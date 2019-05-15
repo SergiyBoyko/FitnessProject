@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.widget.VideoView;
 
 import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.ui.fragments.LoginFragment;
+import com.example.a38096.fitnessproject.ui.fragments.RegisterFragment;
+import com.example.a38096.fitnessproject.utils.FragmentUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +28,25 @@ public class StartActivity extends BaseAppCompatActivity {
         ButterKnife.bind(this);
 
         initVideoBackground();
+        initLoginScreen();
+    }
+
+    private void initLoginScreen() {
+        FragmentUtil.setFragment(
+                getSupportFragmentManager(),
+                LoginFragment.newInstance(this::openRegisterScreen),
+                R.id.container
+        );
+    }
+
+    private void openRegisterScreen() {
+        FragmentUtil.changeFragment(
+                getSupportFragmentManager(),
+                RegisterFragment.newInstance(),
+                true,
+                true,
+                R.id.container
+        );
     }
 
     private void initVideoBackground() {

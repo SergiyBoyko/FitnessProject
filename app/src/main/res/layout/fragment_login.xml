@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary">
+        android:background="@color/sign_up_bg_color">
 
         <TextView
             android:id="@+id/tvRegisterButton"
@@ -65,7 +65,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="36dp"
             android:background="@drawable/login_frame_background"
-            android:elevation="4dp"
             android:padding="32dp">
 
             <android.support.design.widget.TextInputLayout
@@ -122,8 +121,8 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/llEnterButtonContainer"
+        <Button
+            android:id="@+id/btnEnter"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="bottom|center_horizontal"
@@ -131,15 +130,7 @@
             android:layout_marginRight="48dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/button_dark_gradient"
-            android:elevation="4dp">
-
-            <Button
-                android:id="@+id/btnEnter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:text="@string/login_button_enter"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+            android:text="@string/login_button_enter"
+            android:textColor="@android:color/white" />
     </FrameLayout>
 </RelativeLayout>

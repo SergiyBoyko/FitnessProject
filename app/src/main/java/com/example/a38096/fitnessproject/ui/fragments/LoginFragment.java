@@ -14,7 +14,6 @@ import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.presenters.LoginPresenter;
 import com.example.a38096.fitnessproject.ui.activities.MainActivity;
-import com.example.a38096.fitnessproject.ui.activities.RegisterActivity;
 import com.example.a38096.fitnessproject.views.LoginView;
 
 import javax.inject.Inject;
@@ -46,6 +45,18 @@ public class LoginFragment extends BaseFragment<LoginView> implements LoginView 
     @Inject
     protected IUserDataSource userDataSource;
 
+    private Runnable onRegisterClick;
+
+    public static LoginFragment newInstance(Runnable onRegisterClick) {
+        LoginFragment loginFragment = new LoginFragment();
+        loginFragment.setOnRegisterClick(onRegisterClick);
+        return loginFragment;
+    }
+
+    public void setOnRegisterClick(Runnable onRegisterClick) {
+        this.onRegisterClick = onRegisterClick;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,7 +82,7 @@ public class LoginFragment extends BaseFragment<LoginView> implements LoginView 
 
     @OnClick(R.id.tvRegisterButton)
     protected void onRegisterClick() {
-        startActivity(new Intent(getActivity(), RegisterActivity.class));
+        onRegisterClick.run();
     }
 
     @OnClick(R.id.btnEnter)

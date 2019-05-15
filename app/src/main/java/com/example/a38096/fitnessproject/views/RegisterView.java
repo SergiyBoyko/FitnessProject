@@ -11,7 +11,7 @@ public interface RegisterView extends BaseView {
 
     void showEmptySecondNameError();
 
-    void showEmptyeMailError();
+    void showEmptyEmailError();
 
     void showEmptyPasswordError();
 

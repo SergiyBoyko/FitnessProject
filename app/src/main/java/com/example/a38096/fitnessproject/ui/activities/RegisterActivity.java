@@ -121,7 +121,7 @@ public class RegisterActivity extends BaseAppCompatActivity<RegisterView> implem
     }
 
     @Override
-    public void showEmptyeMailError() {
+    public void showEmptyEmailError() {
         clearErrors();
         mTilEmail.setError(getString(R.string.register_error_empty_email));
     }

@@ -68,6 +68,8 @@ public class MainActivity extends BaseAppCompatActivity {
         initNavigationMenuClickListener(bottomNavigationView);
         initNavigationDrawer();
 
+        title.setText(R.string.tab_workout);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

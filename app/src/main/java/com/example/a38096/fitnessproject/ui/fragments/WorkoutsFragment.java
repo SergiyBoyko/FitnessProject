@@ -58,7 +58,8 @@ public class WorkoutsFragment extends BaseFragment<WorkoutView> implements Worko
         registerPresenterLifecycle(presenter, this);
 
         mAdapter = new WorkoutAdapter(null, this);
-        presenter.getWorkouts();
+//        presenter.getWorkouts();
+        showWorkouts(loadTestData());
 
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);

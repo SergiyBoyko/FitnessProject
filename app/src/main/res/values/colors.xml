@@ -6,7 +6,8 @@
 
     <color name="login_card_bg_color">#BFffffff</color>
     <color name="sign_up_bg_color">#BF303030</color>
-    <color name="start_bg_color">#BF000000</color>
+    <color name="black_bg_color_75">#BF000000</color>
+    <color name="black_bg_color_50">#80000000</color>
 
     <color name="dark_grey600">#757575</color>
     <color name="dark_grey800">#424242</color>

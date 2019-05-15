@@ -2,7 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@color/black_bg_color_50"
+        android:scaleType="centerCrop"
+        android:src="@drawable/menu_bg" />
 
     <include
         android:id="@+id/toolbar"
@@ -14,6 +22,9 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_layout_height"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

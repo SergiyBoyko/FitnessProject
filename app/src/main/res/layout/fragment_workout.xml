@@ -16,14 +16,13 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_add_workout"
-        app:backgroundTint="@color/dark_grey600"
-        app:fabSize="mini" />
+        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_add_workout" />
 </RelativeLayout>

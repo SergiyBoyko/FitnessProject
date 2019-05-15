@@ -2,7 +2,7 @@
     <string name="app_name">FitnessProject</string>
 
     <!--Google maps API-->
-    <string name="google_maps_API_key">AIzaSyAl8aGvN5MnFgGqyant4wlZ3GnEoiA0ous</string>
+    <string name="google_maps_API_key">AIzaSyAbLPQ-o5QoOhzULGTgxVR2IL0Wpre98Ms</string>
 
     <string name="request_execution_has_failed">Request execution has failed. Check your internet connection</string>
 
@@ -54,4 +54,5 @@
     <string name="type_intent">type_intent</string>
     <string name="date_intent">date_intent</string>
     <string name="id_intent">id_intent</string>
+    <string name="tab_clubs">Clubs</string>
 </resources>

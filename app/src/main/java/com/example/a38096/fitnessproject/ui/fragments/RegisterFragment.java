@@ -101,6 +101,7 @@ public class RegisterFragment extends BaseFragment<RegisterView> implements Regi
 
     @Override
     public void goToMainActivity() {
+        getActivity().finish();
         startActivity(new Intent(getActivity(), MainActivity.class));
     }
 

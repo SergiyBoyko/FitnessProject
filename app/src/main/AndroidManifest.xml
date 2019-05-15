@@ -39,7 +39,8 @@
         <activity
             android:name=".ui.activities.StartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoTitle" />
+            android:theme="@style/AppTheme.NoTitle"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.activities.RegisterActivity"
             android:screenOrientation="portrait"

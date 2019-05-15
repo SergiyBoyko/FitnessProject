@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
@@ -18,21 +15,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a38096.fitnessproject.R;
+import com.example.a38096.fitnessproject.listeners.PageSelectListener;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
-import com.example.a38096.fitnessproject.ui.fragments.OtherFragment;
+import com.example.a38096.fitnessproject.ui.fragments.ClubsMapFragment;
 import com.example.a38096.fitnessproject.ui.fragments.WorkoutsFragment;
 import com.example.a38096.fitnessproject.utils.AndroidUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.a38096.fitnessproject.widgets.adapters.ViewPagerAdapter;
 
 import javax.inject.Inject;
 
@@ -42,25 +35,25 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseAppCompatActivity {
 
-    @BindView(R.id.tlBottomNavigation)
-    protected TabLayout mTlBottomNavigation;
+    @BindView(R.id.main_view_pager)
+    protected ViewPager mainViewPager;
+    @BindView(R.id.bottom_navigation_view)
+    protected BottomNavigationView bottomNavigationView;
+
     @BindView(R.id.toolbarMain)
     protected Toolbar mToolbar;
-    @BindView(R.id.mainViewPager)
-    protected ViewPager mViewPager;
     @BindView(R.id.navigationDrawer)
     protected DrawerLayout mDrawerLayout;
     @BindView(R.id.navigationView)
-    protected NavigationView mNavigationView;
-    @BindView(R.id.tvToolbarTitle)
-    protected TextView mTvToolbarTitle;
+    protected NavigationView navigationView;
+    @BindView(R.id.title)
+    protected TextView title;
     @BindView(R.id.ivMenu)
     protected ImageView mIvMenu;
     @Inject
     protected IUserDataSource userDataSource;
-    private TextView mTvTabWorkouts;
-    private TextView mTvTabOthers;
-    private MainViewPagerAdapter mAdapter;
+
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +64,43 @@ public class MainActivity extends BaseAppCompatActivity {
 
         getPresentersComponent().inject(this);
 
-        initViewPager();
-        initTabLayout();
+        setupViewPager(mainViewPager);
+        initNavigationMenuClickListener(bottomNavigationView);
         initNavigationDrawer();
+
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        // Hide keyboard when it not needed
+        viewPager.addOnPageChangeListener((PageSelectListener) position -> {
+            title.setText(viewPagerAdapter.getAppBarTitle(position));
+            bottomNavigationView.setSelectedItemId(viewPagerAdapter.getMenuRes(position));
+            AndroidUtils.hideKeyboard(MainActivity.this);
+        });
+
+        viewPagerAdapter.addFragment(
+                WorkoutsFragment.newInstance(),
+                getString(R.string.tab_workout),
+                getString(R.string.tab_workout),
+                R.id.action_workout
+        );
+        viewPagerAdapter.addFragment(
+                ClubsMapFragment.newInstance(),
+                getString(R.string.tab_clubs),
+                getString(R.string.tab_clubs),
+                R.id.action_map
+        );
+
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    private void initNavigationMenuClickListener(BottomNavigationView navigationView) {
+        navigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            mainViewPager.setCurrentItem(viewPagerAdapter.getPosition(menuItem.getItemId()));
+            return true;
+        });
 
     }
 
@@ -91,8 +118,8 @@ public class MainActivity extends BaseAppCompatActivity {
                 super.onDrawerOpened(drawerView);
                 drawerView.bringToFront();
                 drawerView.requestLayout();
-                mNavigationView.bringToFront();
-                mNavigationView.requestLayout();
+                navigationView.bringToFront();
+                navigationView.requestLayout();
             }
         };
         toggle.setDrawerIndicatorEnabled(false);
@@ -121,46 +148,6 @@ public class MainActivity extends BaseAppCompatActivity {
         setSupportActionBar(mToolbar);
 
         mIvMenu.setOnClickListener(v -> mDrawerLayout.openDrawer(GravityCompat.START));
-    }
-
-    private void initViewPager() {
-        mAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mAdapter.addFragmentTitle(getString(R.string.tab_workout));
-        mAdapter.addFragmentTitle(getString(R.string.tab_other));
-
-        mViewPager.setAdapter(mAdapter);
-//        mViewPager.addOnPageChangeListener(presenter);
-//        mViewPager.setOffscreenPageLimit(3);
-    }
-
-    private void initTabLayout() {
-        mTlBottomNavigation.setupWithViewPager(mViewPager);
-
-        //Init tab icons
-        mTvTabWorkouts = initTab(true, 0, R.drawable.ic_workout);
-        mTvTabOthers = initTab(false, 1, R.drawable.ic_workout);
-
-        changeTitle(mAdapter.getPageTitle(0).toString());
-    }
-
-    private TextView initTab(boolean isActive, int index, @DrawableRes int iconRes) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-
-        TextView tabText = (TextView) inflater.inflate(R.layout.item_custom_tab, null, false);
-        tabText.setText(mAdapter.getPageTitle(index));
-
-        changeTabView(isActive, iconRes, tabText);
-
-        TabLayout.Tab tab = mTlBottomNavigation.getTabAt(index);
-        if (tab != null) {
-            tab.setCustomView(tabText);
-        }
-
-        return tabText;
-    }
-
-    public void changeTitle(String titleText) {
-        mTvToolbarTitle.setText(titleText);
     }
 
     private void changeTabView(boolean isActive, @DrawableRes int iconRes, TextView tabText) {
@@ -195,62 +182,6 @@ public class MainActivity extends BaseAppCompatActivity {
     public void OnLogoutClick() {
         userDataSource.clear();
         finish();
-    }
-
-    private class MainViewPagerAdapter extends FragmentPagerAdapter {
-        public static final int FRAGMENT_COUNT = 1;
-        public static final int WORKOUTS = 0;
-        public static final int OTHER = 1;
-
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-        private SparseArray<Fragment> registeredFragments = new SparseArray<>();
-
-        public MainViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            Fragment fragment;
-            if (position == 0) {
-                fragment = new WorkoutsFragment();
-            } else {
-                fragment = new OtherFragment();
-            }
-
-            registeredFragments.put(position, fragment);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return FRAGMENT_COUNT;
-        }
-
-        public void addFragmentTitle(String title) {
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            registeredFragments.put(position, fragment);
-            return fragment;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            registeredFragments.remove(position);
-            super.destroyItem(container, position, object);
-        }
-
-        public Fragment getRegisteredFragment(int position) {
-            return registeredFragments.get(position);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
+        startActivity(new Intent(this, StartActivity.class));
     }
 }

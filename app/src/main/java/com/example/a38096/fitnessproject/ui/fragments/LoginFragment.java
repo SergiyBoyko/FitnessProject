@@ -112,6 +112,7 @@ public class LoginFragment extends BaseFragment<LoginView> implements LoginView 
 
     @Override
     public void goToMainActivity() {
+        getActivity().finish();
         startActivity(new Intent(getActivity(), MainActivity.class));
     }
 

@@ -39,6 +39,10 @@ public class WorkoutsFragment extends BaseFragment<WorkoutView> implements Worko
 
     private WorkoutAdapter mAdapter;
 
+    public static WorkoutsFragment newInstance() {
+        return new WorkoutsFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

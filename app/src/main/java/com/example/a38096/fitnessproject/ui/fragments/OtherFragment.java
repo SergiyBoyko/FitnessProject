@@ -6,4 +6,7 @@ import android.support.v4.app.Fragment;
  * Created by Serhii Boiko on 05.05.2018.
  */
 public class OtherFragment extends Fragment {
+    public static Fragment newInstance() {
+        return new OtherFragment();
+    }
 }

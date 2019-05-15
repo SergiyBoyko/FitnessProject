@@ -1,47 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="in.mylo.pregnancy.baby.app.FAB">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="56dp" />
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="56dp" />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_layout_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_navigation_menu" />
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:background="@android:color/white"
-            android:elevation="80dp">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tlBottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:clickable="true"
-                app:tabBackground="?attr/selectableItemBackgroundBorderless"
-                app:tabGravity="fill"
-                app:tabIndicatorHeight="0dp"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@android:color/black" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/three_offset"
+        android:background="@drawable/dropshadow_top"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view" />
 
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/mainViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/tabs"
-            android:layout_below="@id/toolbar" />
-    </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>

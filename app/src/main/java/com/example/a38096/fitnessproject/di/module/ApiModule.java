@@ -4,12 +4,14 @@ import android.content.SharedPreferences;
 
 import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.common.Constants;
+import com.example.a38096.fitnessproject.model.ClubsDataSource;
 import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
 import com.example.a38096.fitnessproject.model.ILoginDataSource;
 import com.example.a38096.fitnessproject.model.IRegisterDataSource;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
 import com.example.a38096.fitnessproject.model.prefs.UserDataSource;
+import com.example.a38096.fitnessproject.model.remote.ClubsRemoteDataSource;
 import com.example.a38096.fitnessproject.model.remote.CredentialsRemoteDataSource;
 import com.example.a38096.fitnessproject.model.remote.LoginRemoteDataSource;
 import com.example.a38096.fitnessproject.model.remote.RegisterRemoteDataSource;
@@ -68,6 +70,12 @@ public class ApiModule {
     @Singleton
     IUserDataSource provideUserDataSource(SharedPreferences preferences) {
         return new UserDataSource(preferences);
+    }
+
+    @Provides
+    @Singleton
+    ClubsDataSource provideClubsDataSource() {
+        return new ClubsRemoteDataSource();
     }
 
 }

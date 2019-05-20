@@ -2,11 +2,13 @@ package com.example.a38096.fitnessproject.di.module;
 
 import com.example.a38096.fitnessproject.di.scope.Scope;
 import com.example.a38096.fitnessproject.di.scope.Scopes;
+import com.example.a38096.fitnessproject.model.ClubsDataSource;
 import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
 import com.example.a38096.fitnessproject.model.ILoginDataSource;
 import com.example.a38096.fitnessproject.model.IRegisterDataSource;
 import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
+import com.example.a38096.fitnessproject.presenters.ClubsPresenter;
 import com.example.a38096.fitnessproject.presenters.CredentialsPresenter;
 import com.example.a38096.fitnessproject.presenters.LoginPresenter;
 import com.example.a38096.fitnessproject.presenters.RegisterPresenter;
@@ -50,6 +52,13 @@ public class PresentersModule {
     public CredentialsPresenter provideCredentialsPresenter(ICredentialsDataSource credentialsDataSource,
                                                             IUserDataSource userDataSource) {
         return new CredentialsPresenter(credentialsDataSource, userDataSource);
+    }
+
+
+    @Provides
+    @Scope(Scopes.VIEW)
+    public ClubsPresenter provideClubsPresenter(ClubsDataSource clubsDataSource) {
+        return new ClubsPresenter(clubsDataSource);
     }
 
 }

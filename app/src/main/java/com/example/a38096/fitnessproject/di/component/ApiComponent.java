@@ -1,5 +1,6 @@
 package com.example.a38096.fitnessproject.di.component;
 
+import com.example.a38096.fitnessproject.model.ClubsDataSource;
 import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
 import com.example.a38096.fitnessproject.model.ILoginDataSource;
 import com.example.a38096.fitnessproject.model.IRegisterDataSource;
@@ -24,5 +25,7 @@ public interface ApiComponent {
     ICredentialsDataSource credentialsDataSource();
 
     IUserDataSource userDataSource();
+
+    ClubsDataSource clubsDataSource();
 
 }

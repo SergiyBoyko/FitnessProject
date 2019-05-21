@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ClubsView extends BaseView {
     void showClubs(List<Club> clubs);
+
+    void showChanged(Club club);
 }

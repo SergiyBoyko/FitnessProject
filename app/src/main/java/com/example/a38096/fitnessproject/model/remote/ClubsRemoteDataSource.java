@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 
 /**
  * Created by Serhii Boiko on 20.05.2019.
@@ -39,6 +40,22 @@ public class ClubsRemoteDataSource implements ClubsDataSource {
             clubs.add(club3);
             emitter.onNext(clubs);
             emitter.onComplete();
+        });
+    }
+
+    @Override
+    public Observable<Response<Void>> addToFavorites(Club club) {
+        return Observable.create(responseObservableEmitter -> {
+            responseObservableEmitter.onNext(Response.success(null));
+            responseObservableEmitter.onComplete();
+        });
+    }
+
+    @Override
+    public Observable<Response<Void>> removeFromFavorites(Club club) {
+        return Observable.create(responseObservableEmitter -> {
+            responseObservableEmitter.onNext(Response.success(null));
+            responseObservableEmitter.onComplete();
         });
     }
 }

@@ -1,6 +1,7 @@
 package com.example.a38096.fitnessproject.presenters;
 
 import com.example.a38096.fitnessproject.model.ClubsDataSource;
+import com.example.a38096.fitnessproject.model.entities.Club;
 import com.example.a38096.fitnessproject.utils.rx.AsyncTransformer;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.views.ClubsView;
@@ -19,5 +20,27 @@ public class ClubsPresenter extends BasePresenter<ClubsView> {
         addDisposable(clubsDataSource.fetchClubs()
                 .compose(new AsyncTransformer<>())
                 .subscribe(view::showClubs, new RxErrorAction(view)));
+    }
+
+    public void addToFavorites(Club club) {
+        addDisposable(clubsDataSource.addToFavorites(club)
+                .compose(new AsyncTransformer<>())
+                .subscribe(
+                        voidResponse -> {
+                            club.setFavorite(!club.isFavorite());
+                            view.showChanged(club);
+                        }, new RxErrorAction(view)
+                ));
+    }
+
+    public void removeFromFavorites(Club club) {
+        addDisposable(clubsDataSource.removeFromFavorites(club)
+                .compose(new AsyncTransformer<>())
+                .subscribe(
+                        voidResponse -> {
+                            club.setFavorite(!club.isFavorite());
+                            view.showChanged(club);
+                        }, new RxErrorAction(view)
+                ));
     }
 }

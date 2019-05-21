@@ -27,12 +27,17 @@ public class OsmClubClickListener implements Marker.OnMarkerClickListener {
             previousMarker.setIcon(clubsIconProvider.provideReleasedDrawable(previousIsFavorite));
         }
         marker.setIcon(clubsIconProvider.provideSelectedDrawable(club.isFavorite()));
-        callback.onClubSelected(club);
+        callback.onClubSelected(marker);
 
         previousMarker = marker;
         previousIsFavorite = club.isFavorite();
         mapView.invalidate();
         return true;
+    }
+
+    public void setPrevious(Marker previousMarker, boolean previousIsFavorite) {
+        this.previousMarker = previousMarker;
+        this.previousIsFavorite = previousIsFavorite;
     }
 
     public void clear() {
@@ -41,6 +46,6 @@ public class OsmClubClickListener implements Marker.OnMarkerClickListener {
     }
 
     public interface OnScooterSelectedCallback {
-        void onClubSelected(Club selectedClub);
+        void onClubSelected(Marker clubMarker);
     }
 }

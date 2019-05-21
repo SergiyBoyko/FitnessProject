@@ -16,6 +16,7 @@ import com.example.a38096.fitnessproject.model.remote.CredentialsRemoteDataSourc
 import com.example.a38096.fitnessproject.model.remote.LoginRemoteDataSource;
 import com.example.a38096.fitnessproject.model.remote.RegisterRemoteDataSource;
 import com.example.a38096.fitnessproject.model.remote.WorkoutRemoteDataSource;
+import com.example.a38096.fitnessproject.utils.retrofit.NullOnEmptyConverterFactory;
 
 import javax.inject.Singleton;
 
@@ -38,6 +39,7 @@ public class ApiModule {
         return new Retrofit.Builder()
                 .baseUrl(Constants.BASE_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }

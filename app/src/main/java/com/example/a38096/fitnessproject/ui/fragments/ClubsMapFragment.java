@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.listeners.OsmClubClickListener;
@@ -37,6 +38,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Serhii Boiko on 24.10.2018.
@@ -48,15 +50,18 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
 
     @BindView(R.id.map)
     protected MapView mapView;
+    @BindView(R.id.favorite_indicator)
+    protected ImageView favoriteIndicator;
     @Inject
     protected ClubsPresenter presenter;
 
-    private List<Marker> clubMarkerArray;
     private MyLocationNewOverlay locationOverlay;
 
     private List<Club> clubList;
     private ClubsIconProvider clubsIconProvider;
     private OsmClubClickListener onMarkerClickListener;
+
+    private Marker activeMarker;
 
     public static ClubsMapFragment newInstance() {
         return new ClubsMapFragment();
@@ -79,17 +84,26 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
         registerPresenterLifecycle(presenter, this);
 
         initData();
-        presenter.fetchClubs();
+//        presenter.fetchClubs();
     }
 
     private void initData() {
         clubsIconProvider = new ClubsIconProvider(Objects.requireNonNull(getContext()));
         onMarkerClickListener = new OsmClubClickListener(this::loadClubData, clubsIconProvider);
-        clubMarkerArray = new ArrayList<>();
     }
 
-    private void loadClubData(Club club) {
-        AndroidUtils.showLongToast(getContext(), club.getName());
+    private void loadClubData(Marker clubMarker) {
+        activeMarker = clubMarker;
+        notifyFavoriteIndicator((Club) clubMarker.getRelatedObject());
+    }
+
+    public void notifyFavoriteIndicator(Club club) {
+        favoriteIndicator.setImageResource(
+                club.isFavorite()
+                        ? android.R.drawable.star_big_on
+                        : android.R.drawable.star_big_off
+        );
+        favoriteIndicator.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -145,16 +159,40 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
             marker.setRelatedObject(club);
 
             geoPoints.add(marker.getPosition());
-            clubMarkerArray.add(marker);
             mapView.getOverlays().add(marker);
         }
         if (!geoPoints.isEmpty()) {
             BoundingBox boundingBox = BoundingBox.fromGeoPoints(geoPoints);
             try {
-                mapView.zoomToBoundingBox(boundingBox, APPLY_ANIMATION, 50);
+                mapView.zoomToBoundingBox(
+                        boundingBox,
+                        APPLY_ANIMATION,
+                        (int) AndroidUtils.convertDpToPixel(16f, getContext())
+                );
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void showChanged(Club club) {
+        activeMarker.setIcon(clubsIconProvider.provideSelectedDrawable(club.isFavorite()));
+        activeMarker.setRelatedObject(club);
+
+        onMarkerClickListener.setPrevious(activeMarker, club.isFavorite());
+
+        mapView.invalidate();
+        notifyFavoriteIndicator(club);
+    }
+
+    @OnClick(R.id.favorite_indicator)
+    protected void onStarClicked() {
+        Club club = (Club) activeMarker.getRelatedObject();
+        if (club.isFavorite()) {
+            presenter.removeFromFavorites(club);
+        } else {
+            presenter.addToFavorites(club);
         }
     }
 

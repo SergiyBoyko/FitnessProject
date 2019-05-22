@@ -18,7 +18,6 @@ import com.example.a38096.fitnessproject.ui.activities.EditWorkoutActivity;
 import com.example.a38096.fitnessproject.views.WorkoutView;
 import com.example.a38096.fitnessproject.widgets.adapters.WorkoutAdapter;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,23 +57,11 @@ public class WorkoutsFragment extends BaseFragment<WorkoutView> implements Worko
         registerPresenterLifecycle(presenter, this);
 
         mAdapter = new WorkoutAdapter(null, this);
-//        presenter.getWorkouts();
-        showWorkouts(loadTestData());
+        presenter.getWorkouts();
 
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    private List<Workout> loadTestData() {
-        Workout workout = new Workout();
-        workout.setWorkoutDate(1527057000000L);
-        workout.setType("Cross");
-        workout.setCalories(50);
-        workout.setDistance(51.15);
-        workout.setDuration(52);
-        workout.setWorkoutId(1L);
-        return Arrays.asList(workout, workout, workout, workout, workout, workout, workout);
     }
 
     @OnClick(R.id.fab)

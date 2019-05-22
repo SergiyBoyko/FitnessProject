@@ -57,8 +57,8 @@ public class PresentersModule {
 
     @Provides
     @Scope(Scopes.VIEW)
-    public ClubsPresenter provideClubsPresenter(ClubsDataSource clubsDataSource) {
-        return new ClubsPresenter(clubsDataSource);
+    public ClubsPresenter provideClubsPresenter(ClubsDataSource clubsDataSource, IUserDataSource userDataSource) {
+        return new ClubsPresenter(clubsDataSource, userDataSource);
     }
 
 }

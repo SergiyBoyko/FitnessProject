@@ -34,8 +34,8 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         if (isNotValidRegisterData(firstName, lastName, email, password, passwordRepeat)) {
             return;
         }
-//        register(firstName, lastName, email, password, gender);
-        view.goToMainActivity();
+        register(firstName, lastName, email, password, gender);
+//        view.goToMainActivity();
     }
 
     private boolean isNotValidRegisterData(String firstName, String lastName, String email,

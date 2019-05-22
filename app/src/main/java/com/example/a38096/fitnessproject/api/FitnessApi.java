@@ -1,5 +1,6 @@
 package com.example.a38096.fitnessproject.api;
 
+import com.example.a38096.fitnessproject.model.entities.Club;
 import com.example.a38096.fitnessproject.model.entities.User;
 import com.example.a38096.fitnessproject.model.entities.Workout;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -65,5 +67,25 @@ public interface FitnessApi {
     @GET("/fitness/exerciser/{uuid}/workouts")
     Observable<List<Workout>> getWorkouts(@Path("uuid") String uuid,
                                           @Header("Authorization") String loginPasswordBase64);
+
+    @GET("fitness/exerciser/{exerciserUuid}/clubs")
+    Observable<List<Club>> getFavorites(
+            @Path("exerciserUuid") String uuid,
+            @Header("Authorization") String loginPasswordBase64
+    );
+
+    @POST("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
+    Observable<Response<Void>> addToFavorites(
+            @Path("exerciserUuid") String exerciserUuid,
+            @Path("clubUuid") String uuid,
+            @Header("Authorization") String loginPasswordBase64
+    );
+
+    @DELETE("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
+    Observable<Response<Void>> removeFromFavorites(
+            @Path("exerciserUuid") String exerciserUuid,
+            @Path("clubUuid") String uuid,
+            @Header("Authorization") String loginPasswordBase64
+    );
 
 }

@@ -76,8 +76,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ClubsDataSource provideClubsDataSource() {
-        return new ClubsRemoteDataSource();
+    ClubsDataSource provideClubsDataSource(Retrofit retrofit) {
+        return new ClubsRemoteDataSource(retrofit.create(FitnessApi.class));
     }
 
 }

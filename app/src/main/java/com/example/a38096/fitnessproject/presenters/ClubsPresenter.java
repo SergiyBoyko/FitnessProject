@@ -1,6 +1,7 @@
 package com.example.a38096.fitnessproject.presenters;
 
 import com.example.a38096.fitnessproject.model.ClubsDataSource;
+import com.example.a38096.fitnessproject.model.IUserDataSource;
 import com.example.a38096.fitnessproject.model.entities.Club;
 import com.example.a38096.fitnessproject.utils.rx.AsyncTransformer;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
@@ -11,19 +12,21 @@ import com.example.a38096.fitnessproject.views.ClubsView;
  */
 public class ClubsPresenter extends BasePresenter<ClubsView> {
     private final ClubsDataSource clubsDataSource;
+    private final IUserDataSource userDataSource;
 
-    public ClubsPresenter(ClubsDataSource clubsDataSource) {
+    public ClubsPresenter(ClubsDataSource clubsDataSource, IUserDataSource userDataSource) {
         this.clubsDataSource = clubsDataSource;
+        this.userDataSource = userDataSource;
     }
 
     public void fetchClubs() {
-        addDisposable(clubsDataSource.fetchClubs()
+        addDisposable(clubsDataSource.fetchClubs(userDataSource.getToken(), userDataSource.getBase64Data())
                 .compose(new AsyncTransformer<>())
                 .subscribe(view::showClubs, new RxErrorAction(view)));
     }
 
     public void addToFavorites(Club club) {
-        addDisposable(clubsDataSource.addToFavorites(club)
+        addDisposable(clubsDataSource.addToFavorites(userDataSource.getToken(), club.getUuid(), userDataSource.getBase64Data())
                 .compose(new AsyncTransformer<>())
                 .subscribe(
                         voidResponse -> {
@@ -34,7 +37,7 @@ public class ClubsPresenter extends BasePresenter<ClubsView> {
     }
 
     public void removeFromFavorites(Club club) {
-        addDisposable(clubsDataSource.removeFromFavorites(club)
+        addDisposable(clubsDataSource.removeFromFavorites(userDataSource.getToken(), club.getUuid(), userDataSource.getBase64Data())
                 .compose(new AsyncTransformer<>())
                 .subscribe(
                         voidResponse -> {

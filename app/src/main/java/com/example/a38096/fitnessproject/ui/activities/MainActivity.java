@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.listeners.PageSelectListener;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.ui.fragments.ClubsMapFragment;
 import com.example.a38096.fitnessproject.ui.fragments.WorkoutsFragment;
 import com.example.a38096.fitnessproject.utils.AndroidUtils;
@@ -51,7 +51,7 @@ public class MainActivity extends BaseAppCompatActivity {
     @BindView(R.id.ivMenu)
     protected ImageView mIvMenu;
     @Inject
-    protected IUserDataSource userDataSource;
+    protected UserDataSource userDataSource;
 
     private ViewPagerAdapter viewPagerAdapter;
 

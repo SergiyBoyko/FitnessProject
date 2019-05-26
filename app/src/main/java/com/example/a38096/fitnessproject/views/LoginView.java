@@ -8,5 +8,5 @@ public interface LoginView extends BaseView {
 
     void showEmptyPasswordError();
 
-    void goToMainActivity();
+    void onSuccessLogin();
 }

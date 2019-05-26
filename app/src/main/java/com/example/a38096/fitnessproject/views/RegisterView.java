@@ -5,7 +5,7 @@ package com.example.a38096.fitnessproject.views;
  */
 public interface RegisterView extends BaseView {
 
-    void goToMainActivity();
+    void onSuccessRegistration();
 
     void showEmptyFirstNameError();
 

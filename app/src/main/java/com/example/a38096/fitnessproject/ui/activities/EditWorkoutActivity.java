@@ -166,7 +166,7 @@ public class EditWorkoutActivity extends BaseAppCompatActivity<WorkoutView> impl
     }
 
     @Override
-    public void deleteWorkout(int workoutId) {
+    public void applyDeletedWorkout(int workoutId) {
 
     }
 }

@@ -11,5 +11,5 @@ public interface WorkoutView extends BaseView {
 
     void showWorkouts(List<Workout> workouts);
 
-    void deleteWorkout(int workoutId);
+    void applyDeletedWorkout(int workoutId);
 }

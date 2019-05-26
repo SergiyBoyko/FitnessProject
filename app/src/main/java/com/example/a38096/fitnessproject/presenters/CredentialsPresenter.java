@@ -2,8 +2,8 @@ package com.example.a38096.fitnessproject.presenters;
 
 import android.text.TextUtils;
 
-import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.CredentialsDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
 import com.example.a38096.fitnessproject.views.CredentialsView;
@@ -16,11 +16,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class CredentialsPresenter extends BasePresenter<CredentialsView> {
 
-    private final ICredentialsDataSource mCredentialsDataSource;
+    private final CredentialsDataSource mCredentialsDataSource;
 
-    private final IUserDataSource mUserDataSource;
+    private final UserDataSource mUserDataSource;
 
-    public CredentialsPresenter(ICredentialsDataSource mCredentialsDataSource, IUserDataSource mUserDataSource) {
+    public CredentialsPresenter(CredentialsDataSource mCredentialsDataSource, UserDataSource mUserDataSource) {
         this.mCredentialsDataSource = mCredentialsDataSource;
         this.mUserDataSource = mUserDataSource;
     }
@@ -42,7 +42,7 @@ public class CredentialsPresenter extends BasePresenter<CredentialsView> {
             return;
         }
 
-//        getView().showSuccess();
+//        getView().showSuccessUpdated();
 
         addDisposable(mCredentialsDataSource.updateUser(
                 mUserDataSource.getToken(),
@@ -58,7 +58,7 @@ public class CredentialsPresenter extends BasePresenter<CredentialsView> {
                             mUserDataSource.setFirstName(firstName);
                             mUserDataSource.setSecondName(lastName);
                             mUserDataSource.setGender(gender);
-                            getView().showSuccess();
+                            getView().showSuccessUpdated();
                         }, new RxErrorAction(view))
         );
     }

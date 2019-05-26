@@ -1,7 +1,7 @@
 package com.example.a38096.fitnessproject.model.remote;
 
 import com.example.a38096.fitnessproject.api.FitnessApi;
-import com.example.a38096.fitnessproject.model.ILoginDataSource;
+import com.example.a38096.fitnessproject.model.LoginDataSource;
 import com.example.a38096.fitnessproject.model.entities.User;
 
 import io.reactivex.Observable;
@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 /**
  * Created by Serhii Boiko on 06.05.2018.
  */
-public class LoginRemoteDataSource implements ILoginDataSource {
+public class LoginRemoteDataSource implements LoginDataSource {
     private final FitnessApi fitnessApi;
 
     public LoginRemoteDataSource(FitnessApi fitnessApi) {

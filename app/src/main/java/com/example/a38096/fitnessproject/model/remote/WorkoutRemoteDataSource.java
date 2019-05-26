@@ -1,7 +1,7 @@
 package com.example.a38096.fitnessproject.model.remote;
 
 import com.example.a38096.fitnessproject.api.FitnessApi;
-import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
+import com.example.a38096.fitnessproject.model.WorkoutDataSource;
 import com.example.a38096.fitnessproject.model.entities.Workout;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by Serhii Boiko on 06.05.2018.
  */
-public class WorkoutRemoteDataSource implements IWorkoutDataSource {
+public class WorkoutRemoteDataSource implements WorkoutDataSource {
 
     private FitnessApi fitnessApi;
 

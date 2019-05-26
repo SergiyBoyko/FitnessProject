@@ -1,7 +1,7 @@
 package com.example.a38096.fitnessproject.presenters;
 
-import com.example.a38096.fitnessproject.model.IUserDataSource;
-import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
+import com.example.a38096.fitnessproject.model.WorkoutDataSource;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
 import com.example.a38096.fitnessproject.views.WorkoutView;
@@ -14,11 +14,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class WorkoutPresenter extends BasePresenter<WorkoutView> {
 
-    private final IWorkoutDataSource mWorkoutDataSource;
+    private final WorkoutDataSource mWorkoutDataSource;
 
-    private final IUserDataSource mDataSource;
+    private final UserDataSource mDataSource;
 
-    public WorkoutPresenter(IWorkoutDataSource mWorkoutDataSource, IUserDataSource mDataSource) {
+    public WorkoutPresenter(WorkoutDataSource mWorkoutDataSource, UserDataSource mDataSource) {
         this.mWorkoutDataSource = mWorkoutDataSource;
         this.mDataSource = mDataSource;
     }
@@ -69,7 +69,7 @@ public class WorkoutPresenter extends BasePresenter<WorkoutView> {
                         .retryWhen(new RxRetryWithDelay())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workouts -> view.deleteWorkout((int) workoutId),
+                .subscribe(workouts -> view.applyDeletedWorkout((int) workoutId),
                         new RxErrorAction(view))
         );
     }

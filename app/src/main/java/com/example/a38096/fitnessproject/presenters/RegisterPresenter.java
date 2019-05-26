@@ -3,8 +3,8 @@ package com.example.a38096.fitnessproject.presenters;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.example.a38096.fitnessproject.model.IRegisterDataSource;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.RegisterDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
 import com.example.a38096.fitnessproject.views.RegisterView;
@@ -20,11 +20,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class RegisterPresenter extends BasePresenter<RegisterView> {
 
-    private final IRegisterDataSource registerDataSource;
+    private final RegisterDataSource registerDataSource;
 
-    private final IUserDataSource mDataSource;
+    private final UserDataSource mDataSource;
 
-    public RegisterPresenter(IRegisterDataSource registerDataSource, IUserDataSource mDataSource) {
+    public RegisterPresenter(RegisterDataSource registerDataSource, UserDataSource mDataSource) {
         this.registerDataSource = registerDataSource;
         this.mDataSource = mDataSource;
     }
@@ -35,7 +35,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             return;
         }
         register(firstName, lastName, email, password, gender);
-//        view.goToMainActivity();
+//        view.onSuccessLogin();
     }
 
     private boolean isNotValidRegisterData(String firstName, String lastName, String email,
@@ -84,7 +84,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
                     mDataSource.setSecondName(user.getLastName());
                     mDataSource.setGender(user.getGender());
                     mDataSource.setBase64Data(finalBase64);
-                    view.goToMainActivity();
+                    view.onSuccessRegistration();
 
                 }, new RxErrorAction(view))
         );

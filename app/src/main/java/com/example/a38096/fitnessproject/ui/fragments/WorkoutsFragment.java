@@ -112,7 +112,7 @@ public class WorkoutsFragment extends BaseFragment<WorkoutView> implements Worko
     }
 
     @Override
-    public void deleteWorkout(int workoutId) {
+    public void applyDeletedWorkout(int workoutId) {
         mAdapter.removeWorkout(workoutId);
     }
 }

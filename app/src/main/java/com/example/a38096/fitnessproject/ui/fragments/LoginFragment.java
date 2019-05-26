@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.a38096.fitnessproject.R;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.presenters.LoginPresenter;
 import com.example.a38096.fitnessproject.ui.activities.MainActivity;
 import com.example.a38096.fitnessproject.views.LoginView;
@@ -43,7 +43,7 @@ public class LoginFragment extends BaseFragment<LoginView> implements LoginView 
     protected LoginPresenter presenter;
 
     @Inject
-    protected IUserDataSource userDataSource;
+    protected UserDataSource userDataSource;
 
     private Runnable onRegisterClick;
 
@@ -76,7 +76,7 @@ public class LoginFragment extends BaseFragment<LoginView> implements LoginView 
 
     private void checkIfAuthorized() {
         if (userDataSource.isAuthorized()) {
-            goToMainActivity();
+            onSuccessLogin();
         }
     }
 
@@ -111,7 +111,7 @@ public class LoginFragment extends BaseFragment<LoginView> implements LoginView 
     }
 
     @Override
-    public void goToMainActivity() {
+    public void onSuccessLogin() {
         getActivity().finish();
         startActivity(new Intent(getActivity(), MainActivity.class));
     }

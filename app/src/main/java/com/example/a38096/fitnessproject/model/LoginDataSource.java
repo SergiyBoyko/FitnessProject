@@ -7,6 +7,6 @@ import io.reactivex.Observable;
 /**
  * Created by Serhii Boiko on 06.05.2018.
  */
-public interface ILoginDataSource {
+public interface LoginDataSource {
     Observable<User> login(String loginPasswordBase64);
 }

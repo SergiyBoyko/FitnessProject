@@ -3,8 +3,8 @@ package com.example.a38096.fitnessproject.presenters;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.example.a38096.fitnessproject.model.ILoginDataSource;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.LoginDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.utils.rx.AsyncTransformer;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
 import com.example.a38096.fitnessproject.utils.rx.RxRetryWithDelay;
@@ -17,11 +17,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class LoginPresenter extends BasePresenter<LoginView> {
 
-    private final ILoginDataSource mLoginDataSource;
+    private final LoginDataSource mLoginDataSource;
 
-    private final IUserDataSource mDataSource;
+    private final UserDataSource mDataSource;
 
-    public LoginPresenter(ILoginDataSource mLoginDataSource, IUserDataSource mDataSource) {
+    public LoginPresenter(LoginDataSource mLoginDataSource, UserDataSource mDataSource) {
         this.mLoginDataSource = mLoginDataSource;
         this.mDataSource = mDataSource;
     }
@@ -36,7 +36,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         base64 = "Basic " + Base64.encodeToString(source.trim().getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
 
         login(base64);
-//        view.goToMainActivity();
+//        view.onSuccessLogin();
     }
 
     private boolean isNotValidLoginPassword(String login, String password) {
@@ -62,7 +62,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     mDataSource.setSecondName(user.getLastName());
                     mDataSource.setGender(user.getGender());
                     mDataSource.setBase64Data(loginPasswordBase64);
-                    view.goToMainActivity();
+                    view.onSuccessLogin();
                 }, new RxErrorAction(view))
         );
     }

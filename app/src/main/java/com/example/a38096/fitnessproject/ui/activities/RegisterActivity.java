@@ -104,7 +104,7 @@ public class RegisterActivity extends BaseAppCompatActivity<RegisterView> implem
     }
 
     @Override
-    public void goToMainActivity() {
+    public void onSuccessRegistration() {
         startActivity(new Intent(this, MainActivity.class));
     }
 

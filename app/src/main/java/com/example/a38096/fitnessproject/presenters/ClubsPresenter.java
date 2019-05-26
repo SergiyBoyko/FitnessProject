@@ -1,7 +1,7 @@
 package com.example.a38096.fitnessproject.presenters;
 
 import com.example.a38096.fitnessproject.model.ClubsDataSource;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.model.entities.Club;
 import com.example.a38096.fitnessproject.utils.rx.AsyncTransformer;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;
@@ -12,9 +12,9 @@ import com.example.a38096.fitnessproject.views.ClubsView;
  */
 public class ClubsPresenter extends BasePresenter<ClubsView> {
     private final ClubsDataSource clubsDataSource;
-    private final IUserDataSource userDataSource;
+    private final UserDataSource userDataSource;
 
-    public ClubsPresenter(ClubsDataSource clubsDataSource, IUserDataSource userDataSource) {
+    public ClubsPresenter(ClubsDataSource clubsDataSource, UserDataSource userDataSource) {
         this.clubsDataSource = clubsDataSource;
         this.userDataSource = userDataSource;
     }
@@ -31,7 +31,7 @@ public class ClubsPresenter extends BasePresenter<ClubsView> {
                 .subscribe(
                         voidResponse -> {
                             club.setFavorite(!club.isFavorite());
-                            view.showChanged(club);
+                            view.applyChanges(club);
                         }, new RxErrorAction(view)
                 ));
     }
@@ -42,7 +42,7 @@ public class ClubsPresenter extends BasePresenter<ClubsView> {
                 .subscribe(
                         voidResponse -> {
                             club.setFavorite(!club.isFavorite());
-                            view.showChanged(club);
+                            view.applyChanges(club);
                         }, new RxErrorAction(view)
                 ));
     }

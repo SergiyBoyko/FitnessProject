@@ -1,7 +1,7 @@
 package com.example.a38096.fitnessproject.model.remote;
 
 import com.example.a38096.fitnessproject.api.FitnessApi;
-import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
+import com.example.a38096.fitnessproject.model.CredentialsDataSource;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -9,7 +9,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by Serhii Boiko on 14.05.2018.
  */
-public class CredentialsRemoteDataSource implements ICredentialsDataSource {
+public class CredentialsRemoteDataSource implements CredentialsDataSource {
     private FitnessApi fitnessApi;
 
     public CredentialsRemoteDataSource(FitnessApi fitnessApi) {

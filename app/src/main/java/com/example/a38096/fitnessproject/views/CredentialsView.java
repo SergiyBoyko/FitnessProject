@@ -5,7 +5,7 @@ package com.example.a38096.fitnessproject.views;
  */
 public interface CredentialsView extends BaseView {
 
-    void showSuccess();
+    void showSuccessUpdated();
 
     void showEmptyFirstNameError();
 

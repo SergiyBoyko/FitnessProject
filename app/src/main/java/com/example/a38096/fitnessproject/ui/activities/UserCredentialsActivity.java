@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.a38096.fitnessproject.R;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 import com.example.a38096.fitnessproject.presenters.CredentialsPresenter;
 import com.example.a38096.fitnessproject.views.CredentialsView;
 
@@ -44,7 +44,7 @@ public class UserCredentialsActivity extends BaseAppCompatActivity<CredentialsVi
     protected CredentialsPresenter presenter;
 
     @Inject
-    protected IUserDataSource userDataSource;
+    protected UserDataSource userDataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class UserCredentialsActivity extends BaseAppCompatActivity<CredentialsVi
     }
 
     @Override
-    public void showSuccess() {
+    public void showSuccessUpdated() {
         clearErrors();
         Toast.makeText(this, "Completed!", Toast.LENGTH_SHORT).show();
     }

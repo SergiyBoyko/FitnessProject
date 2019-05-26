@@ -7,7 +7,7 @@ import io.reactivex.Observable;
 /**
  * Created by Serhii Boiko on 06.05.2018.
  */
-public interface IRegisterDataSource {
+public interface RegisterDataSource {
     Observable<User> registerUser(String firstName,
                                   String lastName,
                                   String email,

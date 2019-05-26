@@ -2,12 +2,12 @@ package com.example.a38096.fitnessproject.model.prefs;
 
 import android.content.SharedPreferences;
 
-import com.example.a38096.fitnessproject.model.IUserDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
 
 /**
  * Created by Serhii Boiko on 05.05.2018.
  */
-public class UserDataSource extends BasePrefSource implements IUserDataSource {
+public class UserPrefsDataSource extends BasePrefSource implements UserDataSource {
 
     public static final String AUTHORIZED = "authorized";
     public static final String AUTH_TOKEN = "auth_token";
@@ -16,7 +16,7 @@ public class UserDataSource extends BasePrefSource implements IUserDataSource {
     public static final String BASE64_DATA = "base64_data";
     public static final String GENDER = "gender";
 
-    public UserDataSource(SharedPreferences sharedPreferences) {
+    public UserPrefsDataSource(SharedPreferences sharedPreferences) {
         super(sharedPreferences);
     }
 

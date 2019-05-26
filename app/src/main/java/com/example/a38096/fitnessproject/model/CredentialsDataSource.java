@@ -6,7 +6,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by Serhii Boiko on 14.05.2018.
  */
-public interface ICredentialsDataSource {
+public interface CredentialsDataSource {
     Observable<ResponseBody> updateUser(String uuid,
                                         String firstName,
                                         String lastName,

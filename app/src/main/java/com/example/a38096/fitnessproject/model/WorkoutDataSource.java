@@ -10,7 +10,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by Serhii Boiko on 06.05.2018.
  */
-public interface IWorkoutDataSource {
+public interface WorkoutDataSource {
 
     Observable<ResponseBody> createWorkout(String uuid,
                                            String type,

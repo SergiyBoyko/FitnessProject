@@ -176,7 +176,7 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
     }
 
     @Override
-    public void showChanged(Club club) {
+    public void applyChanges(Club club) {
         activeMarker.setIcon(clubsIconProvider.provideSelectedDrawable(club.isFavorite()));
         activeMarker.setRelatedObject(club);
 

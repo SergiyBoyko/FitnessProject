@@ -1,11 +1,11 @@
 package com.example.a38096.fitnessproject.di.component;
 
 import com.example.a38096.fitnessproject.model.ClubsDataSource;
-import com.example.a38096.fitnessproject.model.ICredentialsDataSource;
-import com.example.a38096.fitnessproject.model.ILoginDataSource;
-import com.example.a38096.fitnessproject.model.IRegisterDataSource;
-import com.example.a38096.fitnessproject.model.IUserDataSource;
-import com.example.a38096.fitnessproject.model.IWorkoutDataSource;
+import com.example.a38096.fitnessproject.model.CredentialsDataSource;
+import com.example.a38096.fitnessproject.model.LoginDataSource;
+import com.example.a38096.fitnessproject.model.RegisterDataSource;
+import com.example.a38096.fitnessproject.model.UserDataSource;
+import com.example.a38096.fitnessproject.model.WorkoutDataSource;
 
 import retrofit2.Retrofit;
 
@@ -16,15 +16,15 @@ public interface ApiComponent {
 
     Retrofit retrofit();
 
-    ILoginDataSource loginDataSource();
+    LoginDataSource loginDataSource();
 
-    IRegisterDataSource registerDataSource();
+    RegisterDataSource registerDataSource();
 
-    IWorkoutDataSource workoutDataSource();
+    WorkoutDataSource workoutDataSource();
 
-    ICredentialsDataSource credentialsDataSource();
+    CredentialsDataSource credentialsDataSource();
 
-    IUserDataSource userDataSource();
+    UserDataSource userDataSource();
 
     ClubsDataSource clubsDataSource();
 

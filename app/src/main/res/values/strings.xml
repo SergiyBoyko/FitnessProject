@@ -34,7 +34,7 @@
     <string name="edit_duration">Duration (min)</string>
     <string name="edit_calories">Calories (cal)</string>
     <string name="edit_date_workout_dialog_title">Workout date</string>
-    <string name="login_error_empty_login">Login is empty</string>
+    <string name="login_error_empty_login">Email is empty</string>
     <string name="login_error_empty_password">Password is empty</string>
     <string name="register_error_empty_first_name">First name is empty</string>
     <string name="register_error_empty_second_name">Second name is empty</string>

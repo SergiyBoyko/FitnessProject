@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.a38096.fitnessproject.R;
 import com.example.a38096.fitnessproject.listeners.OsmClubClickListener;
@@ -50,6 +51,8 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
 
     @BindView(R.id.map)
     protected MapView mapView;
+    @BindView(R.id.club_name)
+    protected TextView clubName;
     @BindView(R.id.favorite_indicator)
     protected ImageView favoriteIndicator;
     @Inject
@@ -84,7 +87,6 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
         registerPresenterLifecycle(presenter, this);
 
         initData();
-//        presenter.fetchClubs();
     }
 
     private void initData() {
@@ -94,7 +96,9 @@ public class ClubsMapFragment extends BaseFragment<ClubsView> implements ClubsVi
 
     private void loadClubData(Marker clubMarker) {
         activeMarker = clubMarker;
-        notifyFavoriteIndicator((Club) clubMarker.getRelatedObject());
+        Club relatedObject = (Club) clubMarker.getRelatedObject();
+        clubName.setText(relatedObject.getName());
+        notifyFavoriteIndicator(relatedObject);
     }
 
     public void notifyFavoriteIndicator(Club club) {

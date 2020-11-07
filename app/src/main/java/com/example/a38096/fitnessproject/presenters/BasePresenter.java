@@ -1,6 +1,6 @@
 package com.example.a38096.fitnessproject.presenters;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.example.a38096.fitnessproject.utils.rx.AsyncTransformer;
 import com.example.a38096.fitnessproject.utils.rx.RxErrorAction;

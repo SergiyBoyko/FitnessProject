@@ -1,6 +1,6 @@
 package com.example.a38096.fitnessproject.listeners;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 public interface PageSelectListener extends ViewPager.OnPageChangeListener {
     @Override

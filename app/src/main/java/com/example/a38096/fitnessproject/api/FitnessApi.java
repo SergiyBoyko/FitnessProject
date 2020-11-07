@@ -22,70 +22,68 @@ import retrofit2.http.Query;
  */
 public interface FitnessApi {
 
-    @POST("/fitness/signUp")
-    Observable<User> registerUser(@Query("firstName") String firstName,
-                                  @Query("lastName") String lastName,
-                                  @Query("email") String email,
-                                  @Query("password") String password,
-                                  @Query("gender") String gender);
+	@POST("/fitness/signUp")
+	Observable<User> registerUser(@Query("firstName") String firstName,
+								  @Query("lastName") String lastName,
+								  @Query("email") String email,
+								  @Query("password") String password,
+								  @Query("gender") String gender);
 
-    @POST("/fitness/login")
-    Observable<User> login(@Header("Authorization") String loginPasswordBase64);
+	@POST("/fitness/login")
+	Observable<User> login(@Header("Authorization") String loginPasswordBase64);
 
-    @PUT("/fitness/exerciser/{uuid}")
-    Observable<ResponseBody> updateUser(@Path("uuid") String uuid,
-                                        @Query("firstName") String firstName,
-                                        @Query("lastName") String lastName,
-                                        @Query("gender") String gender,
-                                        @Header("Authorization") String loginPasswordBase64);
+	@PUT("/fitness/exerciser/{uuid}")
+	Observable<ResponseBody> updateUser(@Path("uuid") String uuid,
+										@Query("firstName") String firstName,
+										@Query("lastName") String lastName,
+										@Query("gender") String gender,
+										@Header("Authorization") String loginPasswordBase64);
 
-    @POST("/fitness/exerciser/{uuid}/workout")
-    Observable<ResponseBody> createWorkout(@Path("uuid") String uuid,
-                                           @Query("type") String type,
-                                           @Query("calories") int calories,
-                                           @Query("distance") double distance,
-                                           @Query("duration") int duration,
-                                           @Query("workoutDate") long workoutDate,
-                                           @Header("Authorization") String loginPasswordBase64);
+	@POST("/fitness/exerciser/{uuid}/workout")
+	Observable<ResponseBody> createWorkout(@Path("uuid") String uuid,
+										   @Query("type") String type,
+										   @Query("calories") int calories,
+										   @Query("distance") double distance,
+										   @Query("duration") int duration,
+										   @Query("workoutDate") long workoutDate,
+										   @Header("Authorization") String loginPasswordBase64);
 
-    @PUT("/fitness/exerciser/{uuid}/workout/{workoutId}")
-    Observable<ResponseBody> updateWorkout(@Path("uuid") String uuid,
-                                           @Path("workoutId") long workoutId,
-                                           @Query("type") String type,
-                                           @Query("calories") int calories,
-                                           @Query("distance") double distance,
-                                           @Query("duration") int duration,
-                                           @Query("workoutDate") long workoutDate,
-                                           @Header("Authorization") String loginPasswordBase64);
+	@PUT("/fitness/exerciser/{uuid}/workout/{workoutId}")
+	Observable<ResponseBody> updateWorkout(@Path("uuid") String uuid,
+										   @Path("workoutId") long workoutId,
+										   @Query("type") String type,
+										   @Query("calories") int calories,
+										   @Query("distance") double distance,
+										   @Query("duration") int duration,
+										   @Query("workoutDate") long workoutDate,
+										   @Header("Authorization") String loginPasswordBase64);
 
-    @DELETE("/fitness/exerciser/{uuid}/workout/{workoutId}")
-    Observable<ResponseBody> deleteWorkout(@Path("uuid") String uuid,
-                                           @Path("workoutId") int workoutId,
-                                           @Header("Authorization") String loginPasswordBase64);
+	@DELETE("/fitness/exerciser/{uuid}/workout/{workoutId}")
+	Observable<ResponseBody> deleteWorkout(@Path("uuid") String uuid,
+										   @Path("workoutId") int workoutId,
+										   @Header("Authorization") String loginPasswordBase64);
 
+	@GET("/fitness/exerciser/{uuid}/workouts")
+	Observable<List<Workout>> getWorkouts(@Path("uuid") String uuid,
+										  @Header("Authorization") String loginPasswordBase64);
 
-    @GET("/fitness/exerciser/{uuid}/workouts")
-    Observable<List<Workout>> getWorkouts(@Path("uuid") String uuid,
-                                          @Header("Authorization") String loginPasswordBase64);
+	@GET("fitness/exerciser/{exerciserUuid}/clubs")
+	Observable<List<Club>> getFavorites(
+			@Path("exerciserUuid") String uuid,
+			@Header("Authorization") String loginPasswordBase64
+	);
 
-    @GET("fitness/exerciser/{exerciserUuid}/clubs")
-    Observable<List<Club>> getFavorites(
-            @Path("exerciserUuid") String uuid,
-            @Header("Authorization") String loginPasswordBase64
-    );
+	@POST("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
+	Observable<Response<Void>> addToFavorites(
+			@Path("exerciserUuid") String exerciserUuid,
+			@Path("clubUuid") String uuid,
+			@Header("Authorization") String loginPasswordBase64
+	);
 
-    @POST("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
-    Observable<Response<Void>> addToFavorites(
-            @Path("exerciserUuid") String exerciserUuid,
-            @Path("clubUuid") String uuid,
-            @Header("Authorization") String loginPasswordBase64
-    );
-
-    @DELETE("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
-    Observable<Response<Void>> removeFromFavorites(
-            @Path("exerciserUuid") String exerciserUuid,
-            @Path("clubUuid") String uuid,
-            @Header("Authorization") String loginPasswordBase64
-    );
-
+	@DELETE("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
+	Observable<Response<Void>> removeFromFavorites(
+			@Path("exerciserUuid") String exerciserUuid,
+			@Path("clubUuid") String uuid,
+			@Header("Authorization") String loginPasswordBase64
+	);
 }

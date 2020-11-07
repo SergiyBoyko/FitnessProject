@@ -2,7 +2,7 @@ package com.example.a38096.fitnessproject.ui.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.widget.VideoView;
 
 import com.example.a38096.fitnessproject.R;

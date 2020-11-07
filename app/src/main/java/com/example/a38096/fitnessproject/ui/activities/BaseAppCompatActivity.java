@@ -1,7 +1,7 @@
 package com.example.a38096.fitnessproject.ui.activities;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a38096.fitnessproject.AppFitness;
 import com.example.a38096.fitnessproject.di.component.PresentersComponent;

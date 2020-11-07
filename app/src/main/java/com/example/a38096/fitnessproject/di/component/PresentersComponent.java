@@ -19,30 +19,28 @@ import dagger.Component;
  * Created by Serhii Boiko on 01.05.2018.
  */
 
-
 @Scope(Scopes.VIEW)
 @Component(
-        modules = {PresentersModule.class},
-        dependencies = {AppComponent.class}
+		modules = {PresentersModule.class},
+		dependencies = {AppComponent.class}
 )
 public interface PresentersComponent {
 
-    void inject(StartActivity startActivity);
+	void inject(StartActivity startActivity);
 
-    void inject(ClubsMapFragment clubsMapFragment);
+	void inject(ClubsMapFragment clubsMapFragment);
 
-    void inject(LoginFragment loginFragment);
+	void inject(LoginFragment loginFragment);
 
-    void inject(RegisterFragment registerFragment);
+	void inject(RegisterFragment registerFragment);
 
-    void inject(RegisterActivity registerActivity);
+	void inject(RegisterActivity registerActivity);
 
-    void inject(WorkoutsFragment workoutsFragment);
+	void inject(WorkoutsFragment workoutsFragment);
 
-    void inject(UserCredentialsActivity credentialsActivity);
+	void inject(UserCredentialsActivity credentialsActivity);
 
-    void inject(MainActivity mainActivity);
+	void inject(MainActivity mainActivity);
 
-    void inject(EditWorkoutActivity editWorkoutActivity);
-
+	void inject(EditWorkoutActivity editWorkoutActivity);
 }

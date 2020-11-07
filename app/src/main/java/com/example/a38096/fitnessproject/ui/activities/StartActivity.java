@@ -50,7 +50,7 @@ public class StartActivity extends BaseAppCompatActivity {
     }
 
     private void initVideoBackground() {
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.videoplayback);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_background);
         videoView.setVideoURI(uri);
         videoView.setOnPreparedListener(mp -> mp.setLooping(true));
         videoView.start();

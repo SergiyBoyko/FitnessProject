@@ -2,7 +2,7 @@ package com.example.a38096.fitnessproject.di.module;
 
 import android.content.SharedPreferences;
 
-import com.example.a38096.fitnessproject.api.FitnessApi;
+import com.example.a38096.fitnessproject.api.FitnessApiImpl;
 import com.example.a38096.fitnessproject.common.Constants;
 import com.example.a38096.fitnessproject.model.ClubsDataSource;
 import com.example.a38096.fitnessproject.model.CredentialsDataSource;
@@ -33,51 +33,50 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiModule {
 
-    @Provides
-    @Singleton
-    public Retrofit provideRetrofit() {
-        return new Retrofit.Builder()
-                .baseUrl(Constants.BASE_API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(new NullOnEmptyConverterFactory())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-    }
+	@Provides
+	@Singleton
+	public Retrofit provideRetrofit() {
+		return new Retrofit.Builder()
+				.baseUrl(Constants.BASE_API_URL)
+				.addConverterFactory(GsonConverterFactory.create())
+				.addConverterFactory(new NullOnEmptyConverterFactory())
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+				.build();
+	}
 
-    @Provides
-    @Singleton
-    LoginDataSource provideLoginDataSource(Retrofit retrofit) {
-        return new LoginRemoteDataSource(retrofit.create(FitnessApi.class));
-    }
+	@Provides
+	@Singleton
+	LoginDataSource provideLoginDataSource(Retrofit retrofit) {
+		return new LoginRemoteDataSource(new FitnessApiImpl());
+	}
 
-    @Provides
-    @Singleton
-    RegisterDataSource provideRegisterDataSource(Retrofit retrofit) {
-        return new RegisterRemoteDataSource(retrofit.create(FitnessApi.class));
-    }
+	@Provides
+	@Singleton
+	RegisterDataSource provideRegisterDataSource(Retrofit retrofit) {
+		return new RegisterRemoteDataSource(new FitnessApiImpl());
+	}
 
-    @Provides
-    @Singleton
-    WorkoutDataSource provideWorkoutDataSource(Retrofit retrofit) {
-        return new WorkoutRemoteDataSource(retrofit.create(FitnessApi.class));
-    }
+	@Provides
+	@Singleton
+	WorkoutDataSource provideWorkoutDataSource(Retrofit retrofit) {
+		return new WorkoutRemoteDataSource(new FitnessApiImpl());
+	}
 
-    @Provides
-    @Singleton
-    CredentialsDataSource provideCredentialsDataSource(Retrofit retrofit) {
-        return new CredentialsRemoteDataSource(retrofit.create(FitnessApi.class));
-    }
+	@Provides
+	@Singleton
+	CredentialsDataSource provideCredentialsDataSource(Retrofit retrofit) {
+		return new CredentialsRemoteDataSource(new FitnessApiImpl());
+	}
 
-    @Provides
-    @Singleton
-    UserDataSource provideUserDataSource(SharedPreferences preferences) {
-        return new UserPrefsDataSource(preferences);
-    }
+	@Provides
+	@Singleton
+	UserDataSource provideUserDataSource(SharedPreferences preferences) {
+		return new UserPrefsDataSource(preferences);
+	}
 
-    @Provides
-    @Singleton
-    ClubsDataSource provideClubsDataSource(Retrofit retrofit) {
-        return new ClubsRemoteDataSource(retrofit.create(FitnessApi.class));
-    }
-
+	@Provides
+	@Singleton
+	ClubsDataSource provideClubsDataSource(Retrofit retrofit) {
+		return new ClubsRemoteDataSource(new FitnessApiImpl());
+	}
 }

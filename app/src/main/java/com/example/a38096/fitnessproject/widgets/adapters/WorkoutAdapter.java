@@ -1,7 +1,5 @@
 package com.example.a38096.fitnessproject.widgets.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +16,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,91 +26,89 @@ import butterknife.ButterKnife;
  */
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder> {
 
-    private List<Workout> mWorkouts;
-    private OnWorkoutClickListener clickListener;
+	private List<Workout> mWorkouts;
+	private OnWorkoutClickListener clickListener;
 
-    public WorkoutAdapter(List<Workout> mWorkouts, OnWorkoutClickListener clickListener) {
-        this.mWorkouts = mWorkouts;
-        this.clickListener = clickListener;
-    }
+	public WorkoutAdapter(List<Workout> mWorkouts, OnWorkoutClickListener clickListener) {
+		this.mWorkouts = mWorkouts;
+		this.clickListener = clickListener;
+	}
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
-    }
+	@NonNull
+	@Override
+	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+	}
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
-        holder.tvDate.setText(dateFormat.format(new Date(mWorkouts.get(position).getWorkoutDate())));
-        holder.tvWorkoutType.setText(mWorkouts.get(position).getType());
-        holder.tvCalories.setText(String.valueOf(mWorkouts.get(position).getCalories()));
-        holder.tvDuration.setText(String.valueOf(mWorkouts.get(position).getDuration()));
-        holder.tvDistance.setText(String.valueOf(mWorkouts.get(position).getDistance()));
-    }
+	@Override
+	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.FORMAT, Locale.ENGLISH);
+		holder.tvDate.setText(dateFormat.format(new Date(mWorkouts.get(position).getWorkoutDate())));
+		holder.tvWorkoutType.setText(mWorkouts.get(position).getType());
+		holder.tvCalories.setText(String.valueOf(mWorkouts.get(position).getCalories()));
+		holder.tvDuration.setText(String.valueOf(mWorkouts.get(position).getDuration()));
+		holder.tvDistance.setText(String.valueOf(mWorkouts.get(position).getDistance()));
+	}
 
-    @Override
-    public int getItemCount() {
-        return mWorkouts == null ? 0 : mWorkouts.size();
-    }
+	@Override
+	public int getItemCount() {
+		return mWorkouts == null ? 0 : mWorkouts.size();
+	}
 
-    public void updateItems(List<Workout> workouts) {
-        mWorkouts = new ArrayList<>(workouts);
-        notifyDataSetChanged();
-    }
+	public void updateItems(List<Workout> workouts) {
+		mWorkouts = new ArrayList<>(workouts);
+		notifyDataSetChanged();
+	}
 
-    public void removeWorkout(int workoutId) {
-        for (Workout workout : mWorkouts) {
-            if (workout.getWorkoutId() == workoutId) {
-                mWorkouts.remove(workout);
-                notifyDataSetChanged();
-                break;
-            }
-        }
+	public void removeWorkout(int workoutId) {
+		for (Workout workout : mWorkouts) {
+			if (workout.getWorkoutId() == workoutId) {
+				mWorkouts.remove(workout);
+				notifyDataSetChanged();
+				break;
+			}
+		}
+	}
 
-    }
+	public interface OnWorkoutClickListener {
+		void onWorkoutClick(Workout workout);
 
-    public interface OnWorkoutClickListener {
-        void onWorkoutClick(Workout workout);
+		void onWorkoutLongClick(Workout workout);
+	}
 
-        void onWorkoutLongClick(Workout workout);
-    }
+	class ViewHolder extends RecyclerView.ViewHolder {
+		@BindView(R.id.tvDate)
+		TextView tvDate;
+		@BindView(R.id.tvWorkoutType)
+		TextView tvWorkoutType;
+		@BindView(R.id.ivEditWorkout)
+		ImageView ivEditWorkout;
+		@BindView(R.id.tvCalories)
+		TextView tvCalories;
+		@BindView(R.id.tvDuration)
+		TextView tvDuration;
+		@BindView(R.id.tvDistance)
+		TextView tvDistance;
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tvDate)
-        TextView tvDate;
-        @BindView(R.id.tvWorkoutType)
-        TextView tvWorkoutType;
-        @BindView(R.id.ivEditWorkout)
-        ImageView ivEditWorkout;
-        @BindView(R.id.tvCalories)
-        TextView tvCalories;
-        @BindView(R.id.tvDuration)
-        TextView tvDuration;
-        @BindView(R.id.tvDistance)
-        TextView tvDistance;
+		ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+			super(inflater.inflate(R.layout.item_workout, parent, false));
 
-        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.item_workout, parent, false));
+			ButterKnife.bind(this, itemView);
 
-            ButterKnife.bind(this, itemView);
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					clickListener.onWorkoutClick(mWorkouts.get(getAdapterPosition()));
+				}
+			});
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onWorkoutClick(mWorkouts.get(getAdapterPosition()));
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    clickListener.onWorkoutLongClick(mWorkouts.get(getAdapterPosition()));
-                    return true;
-                }
-            });
-
-        }
-    }
+			itemView.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					clickListener.onWorkoutLongClick(mWorkouts.get(getAdapterPosition()));
+					return true;
+				}
+			});
+		}
+	}
 }

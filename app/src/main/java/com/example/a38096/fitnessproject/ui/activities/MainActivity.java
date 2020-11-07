@@ -2,8 +2,10 @@ package com.example.a38096.fitnessproject.ui.activities;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.DrawableRes;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -177,7 +179,17 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @OnClick(R.id.tvMenuCredentials)
     public void OnCredentialsClick() {
-        startActivity(new Intent(this, UserCredentialsActivity.class));
+		Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
+		Uri intentUri =
+				Uri.parse("https://arvr.google.com/scene-viewer/1.0").buildUpon()
+				   .appendQueryParameter("file", "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf")
+				   .appendQueryParameter("mode", "ar_only")
+				   .build();
+		sceneViewerIntent.setData(intentUri);
+		sceneViewerIntent.setPackage("com.google.ar.core");
+		startActivity(sceneViewerIntent);
+
+//		startActivity(new Intent(this, UserCredentialsActivity.class));
     }
 
     @OnClick(R.id.tvMenuLogout)

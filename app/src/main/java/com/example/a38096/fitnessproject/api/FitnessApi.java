@@ -6,9 +6,8 @@ import com.example.a38096.fitnessproject.model.entities.Workout;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -33,35 +32,35 @@ public interface FitnessApi {
 	Observable<User> login(@Header("Authorization") String loginPasswordBase64);
 
 	@PUT("/fitness/exerciser/{uuid}")
-	Observable<ResponseBody> updateUser(@Path("uuid") String uuid,
-										@Query("firstName") String firstName,
-										@Query("lastName") String lastName,
-										@Query("gender") String gender,
-										@Header("Authorization") String loginPasswordBase64);
+	Completable updateUser(@Path("uuid") String uuid,
+						   @Query("firstName") String firstName,
+						   @Query("lastName") String lastName,
+						   @Query("gender") String gender,
+						   @Header("Authorization") String loginPasswordBase64);
 
 	@POST("/fitness/exerciser/{uuid}/workout")
-	Observable<ResponseBody> createWorkout(@Path("uuid") String uuid,
-										   @Query("type") String type,
-										   @Query("calories") int calories,
-										   @Query("distance") double distance,
-										   @Query("duration") int duration,
-										   @Query("workoutDate") long workoutDate,
-										   @Header("Authorization") String loginPasswordBase64);
+	Completable createWorkout(@Path("uuid") String uuid,
+							  @Query("type") String type,
+							  @Query("calories") int calories,
+							  @Query("distance") double distance,
+							  @Query("duration") int duration,
+							  @Query("workoutDate") long workoutDate,
+							  @Header("Authorization") String loginPasswordBase64);
 
 	@PUT("/fitness/exerciser/{uuid}/workout/{workoutId}")
-	Observable<ResponseBody> updateWorkout(@Path("uuid") String uuid,
-										   @Path("workoutId") long workoutId,
-										   @Query("type") String type,
-										   @Query("calories") int calories,
-										   @Query("distance") double distance,
-										   @Query("duration") int duration,
-										   @Query("workoutDate") long workoutDate,
-										   @Header("Authorization") String loginPasswordBase64);
+	Completable updateWorkout(@Path("uuid") String uuid,
+							  @Path("workoutId") long workoutId,
+							  @Query("type") String type,
+							  @Query("calories") int calories,
+							  @Query("distance") double distance,
+							  @Query("duration") int duration,
+							  @Query("workoutDate") long workoutDate,
+							  @Header("Authorization") String loginPasswordBase64);
 
 	@DELETE("/fitness/exerciser/{uuid}/workout/{workoutId}")
-	Observable<ResponseBody> deleteWorkout(@Path("uuid") String uuid,
-										   @Path("workoutId") int workoutId,
-										   @Header("Authorization") String loginPasswordBase64);
+	Completable deleteWorkout(@Path("uuid") String uuid,
+							  @Path("workoutId") int workoutId,
+							  @Header("Authorization") String loginPasswordBase64);
 
 	@GET("/fitness/exerciser/{uuid}/workouts")
 	Observable<List<Workout>> getWorkouts(@Path("uuid") String uuid,
@@ -74,14 +73,14 @@ public interface FitnessApi {
 	);
 
 	@POST("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
-	Observable<Response<Void>> addToFavorites(
+	Completable addToFavorites(
 			@Path("exerciserUuid") String exerciserUuid,
 			@Path("clubUuid") String uuid,
 			@Header("Authorization") String loginPasswordBase64
 	);
 
 	@DELETE("fitness/exerciser/{exerciserUuid}/club/{clubUuid}/favorite-club")
-	Observable<Response<Void>> removeFromFavorites(
+	Completable removeFromFavorites(
 			@Path("exerciserUuid") String exerciserUuid,
 			@Path("clubUuid") String uuid,
 			@Header("Authorization") String loginPasswordBase64

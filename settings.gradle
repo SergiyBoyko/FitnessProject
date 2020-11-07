@@ -1,1 +1,1 @@
-include ':app', ':dretrx'
+include ':app'

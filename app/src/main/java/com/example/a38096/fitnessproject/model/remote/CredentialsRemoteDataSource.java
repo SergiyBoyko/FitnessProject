@@ -3,6 +3,7 @@ package com.example.a38096.fitnessproject.model.remote;
 import com.example.a38096.fitnessproject.api.FitnessApi;
 import com.example.a38096.fitnessproject.model.CredentialsDataSource;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 
@@ -17,7 +18,7 @@ public class CredentialsRemoteDataSource implements CredentialsDataSource {
     }
 
     @Override
-    public Observable<ResponseBody> updateUser(String uuid, String firstName, String lastName, String gender, String loginPasswordBase64) {
+    public Completable updateUser(String uuid, String firstName, String lastName, String gender, String loginPasswordBase64) {
         return fitnessApi.updateUser(uuid, firstName, lastName, gender, loginPasswordBase64);
     }
 }

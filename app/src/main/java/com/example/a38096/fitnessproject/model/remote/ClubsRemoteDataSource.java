@@ -6,6 +6,7 @@ import com.example.a38096.fitnessproject.model.entities.Club;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.Response;
 
@@ -25,12 +26,12 @@ public class ClubsRemoteDataSource implements ClubsDataSource {
     }
 
     @Override
-    public Observable<Response<Void>> addToFavorites(String exerciserUuid, String uuid, String loginPasswordBase64) {
+    public Completable addToFavorites(String exerciserUuid, String uuid, String loginPasswordBase64) {
         return fitnessApi.addToFavorites(exerciserUuid, uuid, loginPasswordBase64);
     }
 
     @Override
-    public Observable<Response<Void>> removeFromFavorites(String exerciserUuid, String uuid, String loginPasswordBase64) {
+    public Completable removeFromFavorites(String exerciserUuid, String uuid, String loginPasswordBase64) {
         return fitnessApi.removeFromFavorites(exerciserUuid, uuid, loginPasswordBase64);
     }
 }

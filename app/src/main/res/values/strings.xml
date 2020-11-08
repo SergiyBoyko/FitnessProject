@@ -52,4 +52,5 @@
     <string name="date_intent">date_intent</string>
     <string name="id_intent">id_intent</string>
     <string name="tab_clubs">Clubs</string>
+	<string name="menu_ar_run">Run with AR</string>
 </resources>
